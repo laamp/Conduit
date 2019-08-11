@@ -4,6 +4,13 @@ const app = express();
 const db = require('./config/keys').mongoURI;
 const port = process.env.PORT || 5000;
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// import routes for all data types
+const users = require('./routes/api/users');
+
 // tell app to listen on a port
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 
@@ -14,4 +21,9 @@ mongoose
     .catch(err => console.log(err));
 
 // test route
-app.get('/', (req, res) => res.send('Hello, world!'));
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
+});
+
+// user routes
+app.use('/api/users', users);
