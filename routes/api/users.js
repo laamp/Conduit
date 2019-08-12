@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const keys = require('../../config/keys');
 const User = require('../../models/User');
 
 // test route
@@ -12,7 +15,7 @@ router.post('/signup', (req, res) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if (user) {
-                return res.status(400).json({ error: 'That email has already been used' });
+                return res.status(400).json({ users: 'That email has already been used' });
             } else {
                 // build new user with provided credentials
                 const newUser = new User({
@@ -28,12 +31,53 @@ router.post('/signup', (req, res) => {
                         newUser.password = hash;
                         newUser
                             .save()
-                            .then(user => res.json(user))
+                            .then(user => {
+                                const payload = { id: user.id, name: user.name };
+
+                                jwt.sign(payload, keys.secretOrKey, { expiresIn: '1h' },
+                                    (err, token) => {
+                                        res.json({ success: true, token: 'Bearer ' + token });
+                                    });
+                            })
                             .catch(err => console.log(err));
                     });
                 });
             }
         });
+});
+
+// log in route
+router.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({ email })
+        .then(user => {
+            if (!user) return res.status(404).json({ users: 'This user does not exist' });
+
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        const payload = { id: user.id, name: user.name };
+
+                        jwt.sign(payload, keys.secretOrKey, { expiresIn: '1h' },
+                            (err, token) => {
+                                res.json({ success: true, token: 'Bearer ' + token });
+                            });
+                    } else {
+                        return res.status(400).json({ users: 'Password is incorrect' });
+                    }
+                });
+        });
+});
+
+// passport authentication route
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email
+    });
 });
 
 module.exports = router;

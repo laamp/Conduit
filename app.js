@@ -11,6 +11,10 @@ app.use(bodyParser.json());
 // import routes for all data types
 const users = require('./routes/api/users');
 
+const passport = require('passport');
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 // tell app to listen on a port
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 
