@@ -5,12 +5,18 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const keys = require('../../config/keys');
 const User = require('../../models/User');
+const validateSignupInput = require('../../validation/signup');
+const validateLoginInput = require('../../validation/login');
 
 // test route
 router.get('/test', (req, res) => res.json({ msg: 'This is the users test route' }));
 
 // sign up route
 router.post('/signup', (req, res) => {
+    const { errors, isValid } = validateSignupInput(req.body);
+
+    if (!isValid) return res.status(400).json(errors);
+
     // check for duplicate email
     User.findOne({ email: req.body.email })
         .then(user => {
@@ -48,6 +54,10 @@ router.post('/signup', (req, res) => {
 
 // log in route
 router.post('/login', (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if (!isValid) return res.status(400).json(errors);
+
     const email = req.body.email;
     const password = req.body.password;
 
