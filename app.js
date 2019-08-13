@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 
 // import routes for all data types
 const users = require('./routes/api/users');
+const projects = require('./routes/api/projects');
+const tasks = require('./routes/api/tasks');
 
 const passport = require('passport');
 app.use(passport.initialize());
@@ -29,5 +31,7 @@ app.get('/', (req, res) => {
     res.send('Hello, world!');
 });
 
-// user routes
+// routes
 app.use('/api/users', users);
+app.use('/api/projects', projects);
+// app.use('/api/tasks', tasks);
