@@ -32,6 +32,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'tasks'
     }],
+    assignedTasks: [{
+        type: Schema.Types.ObjectId,
+        ref: 'tasks'
+    }],
     date: {
         type: Date,
         default: Date.now,
