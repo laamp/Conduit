@@ -34,4 +34,4 @@ app.get('/', (req, res) => {
 // routes
 app.use('/api/users', users);
 app.use('/api/projects', projects);
-// app.use('/api/tasks', tasks);
+app.use('/api/tasks', tasks);

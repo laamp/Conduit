@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../../models/User');
 const Project = require('../../models/Project');
-const Task = require('../../models/Task');
 const validateProjectInput = require('../../validation/project');
 
 // test route

@@ -16,5 +16,12 @@ module.exports = function validateTaskInput(data) {
         errors.description = 'Description must be no more than 256 characters';
     }
 
+    if (data.dueDate && data.dueDate.length > 0) {
+        data.dueDate = Validator.toDate(data.dueDate);
+        if (data.dueDate === null) {
+            errors.dueDate = 'Date format is invalid';
+        }
+    }
+
     return { errors, isValid: Object.keys(errors).length === 0 };
 };
