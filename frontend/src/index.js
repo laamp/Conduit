@@ -7,7 +7,7 @@ import configureStore from './store/store';
 
 import jwt_decode from 'jwt-decode';
 
-import setAuthToken from './util/sessionApiUtil';
+import { setAuthToken } from './util/sessionApiUtil';
 
 import { logout } from './actions/sessionActions';
 

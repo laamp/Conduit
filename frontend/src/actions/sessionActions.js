@@ -12,3 +12,5 @@ export const logout = () => {
     APIUtil.setAuthToken(false);
     dispatchEvent(logoutUser());
 };
+
+// NEXT STEP: SESSION REDUCER
