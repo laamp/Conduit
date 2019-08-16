@@ -4,6 +4,8 @@ import { Switch } from 'react-router-dom';
 
 import MainPage from './main/mainPage.js';
 import NavBarContainer from './navBar/navBarContainer';
+import SignupFormContainer from './session/signupFormContainer';
+import LoginFormContainer from './session/loginFormContainer';
 
 const App = () => (
     <>
@@ -18,8 +20,8 @@ const App = () => (
                 - categories (Tasks assigned to you, your projects, your tasks, settings, sign out)
             */}
             <AuthRoute exact path='/' component={MainPage} />
-            {/* <AuthRoute exact path='/signup' component={SignUpFormContainer} />
-            <AuthRoute exact path='/login' component={LogInFormContainer} /> */}
+            <AuthRoute exact path='/signup' component={SignupFormContainer} />
+            <AuthRoute exact path='/login' component={LoginFormContainer} />
         </Switch>
     </>
 );

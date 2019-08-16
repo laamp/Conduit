@@ -38,14 +38,14 @@ export const login = user => dispatch => (
         localStorage.setItem('jwtToken', token);
         APIUtil.setAuthToken(token);
         const decoded = jwt_decode(token);
-        dispatch(receiveCurrentUser(decoded))
+        dispatch(receiveCurrentUser(decoded));
     }).catch(err => {
         dispatch(receiveErrors(err.response.data));
     })
 );
 
-export const logout = () => {
+export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken');
     APIUtil.setAuthToken(false);
-    dispatchEvent(logoutUser());
+    dispatch(logoutUser());
 };

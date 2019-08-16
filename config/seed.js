@@ -90,7 +90,7 @@ async function seed(clear = false) {
     // save users to database
     console.log('Saving users to database...');
     for (let i = 0; i < users.length; i++) {
-        bcrypt.genSalt(12, (err, salt) => {
+        bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(users[i].password, salt, (err, hash) => {
                 users[i].password = hash;
             });
