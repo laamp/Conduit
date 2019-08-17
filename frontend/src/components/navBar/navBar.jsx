@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class NavBar extends React.Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class NavBar extends React.Component {
     logoutUser(e) {
         e.preventDefault();
         this.props.logout();
+        this.props.history.push('/');
     }
 
     getLinks() {
@@ -34,7 +35,7 @@ class NavBar extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='navbar'>
                 <h1>Conduit</h1>
                 {this.getLinks()}
             </div>
@@ -42,4 +43,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+export default withRouter(NavBar);
