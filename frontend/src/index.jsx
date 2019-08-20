@@ -13,6 +13,11 @@ import { logout } from './actions/sessionActions';
 
 import './styles/style.scss';
 
+// Debugging section
+
+
+// Debugging section
+
 document.addEventListener('DOMContentLoaded', () => {
     let store;
 
