@@ -34,24 +34,3 @@ Productivity app inspired by Wunderlist and OmniFocus
     * An inbox where a user can see upcoming tasks that are due or newly assigned to them
     * Search bar to quickly find a task by a specific keyword
 1. Users are able to assign tasks to another user by email so that person can also track and update its progress
-
-## MVPs
-
-1. User Authentication
-1. Home View / Dashboard
-1. Projects / Task Grouping
-1. To dos / Tasks
-1. Production README
-1. Hosting on Heroku
-1. Assigning Tasks / Lists
-1. File uploads
-
-## Components
-
-* Splash page
-* Log in / Sign up form
-* Home view / dashboard
-  * Project index
-  * Project new
-  * Project show / Tasks index
-    * Task new

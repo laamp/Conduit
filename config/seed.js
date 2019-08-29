@@ -12,17 +12,17 @@ const Task = require('../models/Task');
 const users = [
     new User({
         name: 'Guest',
-        email: 'guest@taskandra.com',
+        email: 'guest@conduit.com',
         password: 'hunter12'
     }),
     new User({
         name: 'Lance',
-        email: 'lance@taskandra.com',
+        email: 'lance@conduit.com',
         password: 'hunter12'
     }),
     new User({
         name: 'Cassi',
-        email: 'cassi@taskandra.com',
+        email: 'cassi@conduit.com',
         password: 'hunter12'
     })
 ];

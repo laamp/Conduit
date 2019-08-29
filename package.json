@@ -1,5 +1,5 @@
 {
-  "name": "taskandra",
+  "name": "conduit",
   "version": "1.0.0",
   "description": "OmniFocus type productivity app",
   "main": "app.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/laamp/Taskandra.git"
+    "url": "git+https://github.com/laamp/Conduit.git"
   },
   "author": "laamp",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/laamp/Taskandra/issues"
+    "url": "https://github.com/laamp/Conduit/issues"
   },
-  "homepage": "https://github.com/laamp/Taskandra#readme",
+  "homepage": "https://github.com/laamp/Conduit#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
