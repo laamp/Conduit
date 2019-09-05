@@ -13,7 +13,6 @@ export const signup = userData => {
 };
 
 export const login = userData => {
-    console.log(userData);
     return axios.post('/api/users/login', userData);
 };
 

@@ -9,27 +9,22 @@ class SignupForm extends React.Component {
             name: '',
             email: '',
             password: '',
-            password2: '',
-            errors: {}
+            password2: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderErrors = this.renderErrors.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.signedIn === true) {
+    componentDidUpdate() {
+        if (this.props.signedIn) {
             this.props.history.push('/login');
         }
-
-        this.setState({ errors: nextProps.errors });
     }
 
-    // componentDidUpdate() {
-    //     if (this.props.signedIn) {
-    //         this.props.history.push('/login');
-    //     }
-    // }
+    componentWillUnmount() {
+        this.props.clearErrors();
+    }
 
     update(field) {
         return e => this.setState({
@@ -53,9 +48,9 @@ class SignupForm extends React.Component {
     renderErrors() {
         return (
             <ul>
-                {Object.keys(this.state.errors).map((error, i) => (
+                {Object.keys(this.props.errors).map((error, i) => (
                     <li key={`error-${i}`}>
-                        {this.state.errors[error]}
+                        {this.props.errors[error]}
                     </li>
                 ))}
             </ul>
