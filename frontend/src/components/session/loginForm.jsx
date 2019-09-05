@@ -23,6 +23,12 @@ class LoginForm extends React.Component {
         this.setState({ errors: nextProps.errors });
     }
 
+    // componentDidUpdate() {
+    //     if (this.props.currentUser) {
+    //         this.props.history.push('/home');
+    //     }
+    // }
+
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value

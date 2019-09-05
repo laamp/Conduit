@@ -25,6 +25,12 @@ class SignupForm extends React.Component {
         this.setState({ errors: nextProps.errors });
     }
 
+    // componentDidUpdate() {
+    //     if (this.props.signedIn) {
+    //         this.props.history.push('/login');
+    //     }
+    // }
+
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value
