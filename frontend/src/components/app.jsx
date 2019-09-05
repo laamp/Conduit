@@ -11,17 +11,9 @@ const App = () => (
     <>
         <NavBarContainer />
         <Switch>
-            {/*
-            Routes:
-            - Splash page
-            - Sign up page
-            - Log in page
-            - User home page
-                - categories (Tasks assigned to you, your projects, your tasks, settings, sign out)
-            */}
-            <AuthRoute exact path='/' component={MainPage} />
-            <AuthRoute exact path='/signup' component={SignupFormContainer} />
-            <AuthRoute exact path='/login' component={LoginFormContainer} />
+            <AuthRoute exact path='/' component={MainPage} /> {/* splash page */}
+            <AuthRoute exact path='/signup' component={SignupFormContainer} /> {/* component for signing up */}
+            <AuthRoute exact path='/login' component={LoginFormContainer} /> {/* component for logging in */}
         </Switch>
     </>
 );
