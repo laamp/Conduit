@@ -3,6 +3,7 @@ import * as APIUtil from '../util/projectsApiUtil';
 export const RECEIVE_ALL_PROJECTS = 'RECEIVE_ALL_PROJECTS';
 export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 export const RECEIVE_USERS_PROJECTS = 'RECEIVE_USERS_PROJECTS';
+export const CLEAR_PROJECTS = 'CLEAR_PROJECTS';
 export const RECEIVE_PROJECT_ERRORS = 'RECEIVE_PROJECT_ERRORS';
 export const CLEAR_PROJECT_ERRORS = 'CLEAR_PROJECT_ERRORS';
 
@@ -19,6 +20,10 @@ export const receiveProject = project => ({
 export const receiveUsersProjects = projects => ({
     type: RECEIVE_USERS_PROJECTS,
     projects
+});
+
+export const clearProjects = () => ({
+    type: CLEAR_PROJECTS
 });
 
 export const receiveProjectErrors = errors => ({

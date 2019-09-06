@@ -1,5 +1,5 @@
 import {
-    RECEIVE_USERS_PROJECTS
+    RECEIVE_USERS_PROJECTS, CLEAR_PROJECTS
 } from '../actions/projectsActions';
 
 export default function (state = {}, action) {
@@ -8,6 +8,8 @@ export default function (state = {}, action) {
         case RECEIVE_USERS_PROJECTS:
             let newState = action.projects.data;
             return newState;
+        case CLEAR_PROJECTS:
+            return {};
         default:
             return state;
     }

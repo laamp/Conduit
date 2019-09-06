@@ -1,38 +1,56 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { ProjectTile } from './projectTile/projectTile';
 
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            projects: []
+            bFetchedProjects: false,
+            projects: {}
         };
 
-        this.renderProjects = this.renderProjects.bind(this);
         this.logoutUser = this.logoutUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
     }
 
     componentDidMount() {
-        if (this.props.loggedIn) {
-            this.props.fetchUsersProjects(this.props.currentUser.id);
+        if (this.props.loggedIn &&
+            this.props.currentUser !== undefined &&
+            !this.state.bFetchedProjects) {
+            this.props.fetchUsersProjects(this.props.currentUser.id)
+                .then(res => {
+                    this.setState({
+                        bFetchedProjects: true,
+                        projects: res.projects.data
+                    });
+                });
         }
     }
 
     componentDidUpdate() {
-        // if (this.props.loggedIn) {
-        //     this.props.fetchUsersProjects(this.props.currentUser.id);
-        // }
+        if (this.props.loggedIn &&
+            this.props.currentUser !== undefined &&
+            !this.state.bFetchedProjects) {
+            this.props.fetchUsersProjects(this.props.currentUser.id)
+                .then(res => {
+                    this.setState({
+                        bFetchedProjects: true,
+                        projects: res.projects.data
+                    });
+                });
+        }
     }
 
     renderProjects() {
-        if (this.props.projects.length > 0) {
+        if (Object.entries(this.state.projects).length > 0 && this.state.projects.constructor === Object) {
             return (
                 <ul>
-                    {Object.keys(this.props.projects).map((project, i) => (
+                    {Object.keys(this.state.projects).map((project, i) => (
                         <li key={`project-${i}`}>
-                            <p>{project}</p>
+                            <p>There is a project here!</p>
+                            <ProjectTile project={this.state.projects[project]} />
                         </li>
                     ))}
                 </ul>
@@ -42,6 +60,11 @@ class NavBar extends React.Component {
 
     logoutUser(e) {
         e.preventDefault();
+        this.setState({
+            bFetchedProjects: false,
+            projects: {}
+        });
+        this.props.clearProjects();
         this.props.logout();
         this.props.history.push('/');
     }
