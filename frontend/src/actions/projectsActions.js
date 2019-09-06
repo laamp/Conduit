@@ -4,6 +4,7 @@ export const RECEIVE_ALL_PROJECTS = 'RECEIVE_ALL_PROJECTS';
 export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 export const RECEIVE_USERS_PROJECTS = 'RECEIVE_USERS_PROJECTS';
 export const RECEIVE_PROJECT_ERRORS = 'RECEIVE_PROJECT_ERRORS';
+export const CLEAR_PROJECT_ERRORS = 'CLEAR_PROJECT_ERRORS';
 
 export const receiveAllProjects = projects => ({
     type: RECEIVE_ALL_PROJECTS,
@@ -25,8 +26,22 @@ export const receiveProjectErrors = errors => ({
     errors
 });
 
+export const clearProjectErrors = () => ({
+    type: CLEAR_PROJECT_ERRORS
+});
+
 export const fetchAllProjects = () => dispatch => (
     APIUtil.getAllProjects()
         .then(projects => dispatch(receiveAllProjects(projects)))
         .catch(errors => dispatch(receiveProjectErrors(errors)))
 );
+
+export const fetchUsersProjects = userId => dispatch => (
+    APIUtil.getUserProjects(userId)
+        .then(projects => dispatch(receiveUsersProjects(projects)))
+        .catch(errors => dispatch(receiveProjectErrors(errors)))
+);
+
+export const clearErrors = () => dispatch => {
+    dispatch(clearProjectErrors());
+};

@@ -26,7 +26,14 @@ router.get('/:id', (req, res) => {
 // get a user's projects
 router.get('/user/:userId', (req, res) => {
     Project.find({ owner: req.params.userId })
-        .then(projects => res.json(projects))
+        .then(projects => {
+            let projectsJSON = {};
+            projects.forEach(project => {
+                projectsJSON[project._id] = project;
+            });
+
+            res.json(projectsJSON);
+        })
         .catch(err => res.status(404).json({ projects: 'Could not find projects under that user' }));
 });
 
