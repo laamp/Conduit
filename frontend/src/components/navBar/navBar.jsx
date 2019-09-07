@@ -23,7 +23,7 @@ class NavBar extends React.Component {
                 .then(res => {
                     this.setState({
                         bFetchedProjects: true,
-                        projects: res.projects.data
+                        projects: this.props.projects
                     });
                 });
         }
@@ -37,7 +37,7 @@ class NavBar extends React.Component {
                 .then(res => {
                     this.setState({
                         bFetchedProjects: true,
-                        projects: res.projects.data
+                        projects: this.props.projects
                     });
                 });
         }
@@ -48,8 +48,11 @@ class NavBar extends React.Component {
             return (
                 <ul>
                     {Object.keys(this.state.projects).map((project, i) => (
-                        <li key={`project-${i}`}>
-                            <p>There is a project here!</p>
+                        <li key={`project-${i}`}
+                            onClick={() => {
+                                this.props.setCurrentProject(this.state.projects[project]);
+                                console.log(this.state.projects[project]);
+                            }}>
                             <ProjectTile project={this.state.projects[project]} />
                         </li>
                     ))}

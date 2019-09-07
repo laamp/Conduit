@@ -1,7 +1,8 @@
 import {
     RECEIVE_USER_LOGOUT,
     RECEIVE_CURRENT_USER,
-    RECEIVE_USER_SIGN_IN
+    RECEIVE_USER_SIGN_IN,
+    SET_CURRENT_PROJECT
 } from '../actions/sessionActions';
 
 const initialState = {
@@ -27,6 +28,10 @@ export default function (state = initialState, action) {
                 isAuthenticated: false,
                 user: undefined
             };
+        case SET_CURRENT_PROJECT:
+            let newState = Object.assign({}, state);
+            newState.currentProject = action.project;
+            return newState;
         default:
             return state;
     }

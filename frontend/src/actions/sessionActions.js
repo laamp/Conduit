@@ -6,6 +6,7 @@ export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 export const RECEIVE_USER_LOGOUT = 'RECEIVE_USER_LOGOUT';
 export const RECEIVE_USER_SIGN_IN = 'RECEIVE_USER_SIGN_IN';
 export const CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS';
+export const SET_CURRENT_PROJECT = 'SET_CURRENT_PROJECT';
 
 export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
@@ -28,6 +29,15 @@ export const logoutUser = () => ({
 export const clearSessionErrors = () => ({
     type: CLEAR_SESSION_ERRORS
 });
+
+export const receiveCurrentProject = project => ({
+    type: SET_CURRENT_PROJECT,
+    project
+});
+
+export const setCurrentProject = project => dispatch => (
+    dispatch(receiveCurrentProject(project))
+);
 
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(() => (
