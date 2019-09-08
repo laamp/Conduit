@@ -7,7 +7,9 @@ import {
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
+    isSignedIn: false,
+    user: undefined,
+    currentProject: null
 };
 
 export default function (state = initialState, action) {
@@ -24,14 +26,12 @@ export default function (state = initialState, action) {
                 isSignedIn: true
             };
         case RECEIVE_USER_LOGOUT:
-            return {
-                isAuthenticated: false,
-                user: undefined
-            };
+            return initialState;
         case SET_CURRENT_PROJECT:
-            let newState = Object.assign({}, state);
-            newState.currentProject = action.project;
-            return newState;
+            return {
+                ...state,
+                currentProject: action.projectId
+            };
         default:
             return state;
     }

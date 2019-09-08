@@ -30,14 +30,15 @@ export const clearSessionErrors = () => ({
     type: CLEAR_SESSION_ERRORS
 });
 
-export const receiveCurrentProject = project => ({
+export const receiveCurrentProject = projectId => ({
     type: SET_CURRENT_PROJECT,
-    project
+    projectId
 });
 
-export const setCurrentProject = project => dispatch => (
-    dispatch(receiveCurrentProject(project))
-);
+export const setCurrentProject = projectId => dispatch => {
+    localStorage.setItem('currentProject', projectId);
+    dispatch(receiveCurrentProject(projectId));
+};
 
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(() => (
@@ -73,6 +74,7 @@ export const guestLogin = () => dispatch => (
 
 export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('currentProject');
     APIUtil.setAuthToken(false);
     dispatch(logoutUser());
 };

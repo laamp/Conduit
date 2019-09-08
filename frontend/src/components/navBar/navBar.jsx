@@ -47,13 +47,12 @@ class NavBar extends React.Component {
         if (Object.entries(this.state.projects).length > 0 && this.state.projects.constructor === Object) {
             return (
                 <ul>
-                    {Object.keys(this.state.projects).map((project, i) => (
+                    {Object.keys(this.state.projects).map((projectId, i) => (
                         <li key={`project-${i}`}
                             onClick={() => {
-                                this.props.setCurrentProject(this.state.projects[project]);
-                                console.log(this.state.projects[project]);
+                                this.props.setCurrentProject(projectId);
                             }}>
-                            <ProjectTile project={this.state.projects[project]} />
+                            <ProjectTile project={this.state.projects[projectId]} />
                         </li>
                     ))}
                 </ul>

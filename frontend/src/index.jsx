@@ -1,20 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Root from './components/root';
-
-import configureStore from './store/store';
-
 import jwt_decode from 'jwt-decode';
 
+import Root from './components/root';
+import configureStore from './store/store';
 import { setAuthToken } from './util/sessionApiUtil';
-
 import { logout } from './actions/sessionActions';
 
 import './styles/style.scss';
 
 // Debugging section
-
 
 // Debugging section
 
@@ -23,13 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (localStorage.jwtToken) {
         setAuthToken(localStorage.jwtToken);
-
         const decodedUser = jwt_decode(localStorage.jwtToken);
-
         const preloadedState = { session: { isAuthenticated: true, user: decodedUser } };
-
         store = configureStore(preloadedState);
-
         const currentTime = Date.now() / 1000;
 
         if (decodedUser.exp < currentTime) {
