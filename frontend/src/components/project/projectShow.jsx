@@ -6,36 +6,51 @@ class ProjectShow extends React.Component {
         super(props);
 
         this.state = {
-            currentProjectId: localStorage.getItem('currentProject'),
-            thisProject: null
+            currentProjectId: localStorage.getItem('currentProject')
         };
     }
 
     componentDidMount() {
-        console.log('project show did mount');
-        if (this.state.currentProjectId) {
+        if (!this.state.currentProjectId) {
             this.setState({
-                thisProject: this.props.projects[this.state.currentProjectId]
+                currentProjectId: 'inbox'
             });
         }
     }
 
     componentDidUpdate() {
-        console.log('project show did update');
+        if (this.state.currentProjectId !== localStorage.getItem('currentProject') &&
+            localStorage.getItem('currentProject')) {
+            this.setState({
+                currentProjectId: localStorage.getItem('currentProject')
+            });
+        }
     }
 
-    // make render project function
-
-    render() {
-        if (this.state.thisProject) {
+    projectRender() {
+        if (this.state.currentProjectId === 'inbox') {
             return (
-                <h1>{this.state.thisProject.title}</h1>
-            );
-        } else {
-            return (
-                <h1>No Project Found</h1>
+                <h1>Inbox</h1>
             );
         }
+
+        if (!this.props.projects[this.state.currentProjectId]) {
+            return null;
+        }
+
+        return (
+            <>
+                <h1>{this.props.projects[this.state.currentProjectId].title}</h1>
+            </>
+        );
+    }
+
+    render() {
+        return (
+            <>
+                {this.projectRender()}
+            </>
+        );
     }
 }
 
