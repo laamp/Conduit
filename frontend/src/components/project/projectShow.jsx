@@ -41,6 +41,8 @@ class ProjectShow extends React.Component {
         return (
             <>
                 <h1>{this.props.projects[this.state.currentProjectId].title}</h1>
+                {/* display list of all tasks here */}
+                {/* Tasks Index Component */}
             </>
         );
     }

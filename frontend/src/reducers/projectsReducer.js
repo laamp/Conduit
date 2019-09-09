@@ -1,5 +1,6 @@
 import {
-    RECEIVE_USERS_PROJECTS, CLEAR_PROJECTS
+    RECEIVE_USERS_PROJECTS,
+    CLEAR_PROJECTS
 } from '../actions/projectsActions';
 
 export default function (state = {}, action) {
