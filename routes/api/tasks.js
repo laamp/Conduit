@@ -33,8 +33,16 @@ router.get('/user/:userId', (req, res) => {
 
 // get all tasks from a project
 router.get('/project/:projectId', (req, res) => {
-    Task.find({ project: req.params.projectId })
-        .then(tasks => res.json(tasks))
+    let parsedId = '';
+    if (req.params.projectId === 'null') parsedId = null;
+    else parsedId = req.params.projectId;
+
+    Task.find({ project: parsedId })
+        .then(tasks => {
+            let tasksJSON = {};
+            tasks.forEach(task => tasksJSON[task._id] = task);
+            res.json(tasksJSON);
+        })
         .catch(err => res.status(404).json({ tasks: 'Could not find any tasks associated with that project' }));
 });
 

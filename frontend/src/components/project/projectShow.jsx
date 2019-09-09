@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import TasksIndexContainer from '../task/tasksIndexContainer';
 
 class ProjectShow extends React.Component {
     constructor(props) {
@@ -30,7 +31,10 @@ class ProjectShow extends React.Component {
     projectRender() {
         if (this.state.currentProjectId === 'inbox') {
             return (
-                <h1>Inbox</h1>
+                <>
+                    <h1>Inbox</h1>
+                    <TasksIndexContainer projectId={this.state.currentProjectId} />
+                </>
             );
         }
 
@@ -43,6 +47,7 @@ class ProjectShow extends React.Component {
                 <h1>{this.props.projects[this.state.currentProjectId].title}</h1>
                 {/* display list of all tasks here */}
                 {/* Tasks Index Component */}
+                <TasksIndexContainer projectId={this.state.currentProjectId} />
             </>
         );
     }

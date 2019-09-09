@@ -8,7 +8,8 @@ class NavBar extends React.Component {
 
         this.state = {
             bFetchedProjects: false,
-            projects: {}
+            projects: {},
+            inboxTasks: {}
         };
 
         this.logoutUser = this.logoutUser.bind(this);
@@ -16,6 +17,8 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
+        this.props.fetchInboxTasks();
+
         if (this.props.loggedIn &&
             this.props.currentUser !== undefined &&
             !this.state.bFetchedProjects) {
@@ -27,6 +30,15 @@ class NavBar extends React.Component {
                     });
                 });
         }
+
+        // if (this.state.tasks) {
+        //     this.props.fetchInboxTasks()
+        //         .then(res => {
+        //             this.setState({
+        //                 inboxTasks: this.props.tasks.inboxTasks
+        //             }, () => console.log(this.state.inboxTasks));
+        //         });
+        // }
     }
 
     componentDidUpdate() {
@@ -47,6 +59,12 @@ class NavBar extends React.Component {
         if (Object.entries(this.state.projects).length > 0 && this.state.projects.constructor === Object) {
             return (
                 <ul>
+                    <li key={`project-inbox`}
+                        onClick={() => this.props.setCurrentProject('inbox')}>
+                        <p>Inbox</p>
+                        <p>{Object.entries(this.state.inboxTasks).length}</p>
+                    </li>
+
                     {Object.keys(this.state.projects).map((projectId, i) => (
                         <li key={`project-${i}`}
                             onClick={() => {
