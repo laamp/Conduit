@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
     loggedIn: state.session.isAuthenticated,
     currentUser: state.session.user,
     currentProject: state.session.currentProject,
-    projects: state.entities.projects
+    projects: state.entities.projects,
+    inboxTasks: state.entities.tasks.inboxTasks
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
     fetchUsersProjects: userId => dispatch(fetchUsersProjects(userId)),
     clearProjects: () => dispatch(clearProjects()),
     setCurrentProject: project => dispatch(setCurrentProject(project)),
-    fetchInboxTasks: () => dispatch(fetchInboxTasks())
+    fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

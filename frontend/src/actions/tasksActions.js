@@ -30,8 +30,8 @@ export const fetchProjectTasks = projectId => dispatch => (
         .catch(errors => dispatch(receiveTaskErrors(errors)))
 );
 
-export const fetchInboxTasks = () => dispatch => (
-    APIUtil.getProjectTasks(null)
+export const fetchInboxTasks = userId => dispatch => (
+    APIUtil.getInboxTasks(userId)
         .then(tasks => dispatch(receiveInboxTasks(tasks)))
         .catch(errors => dispatch(receiveTaskErrors(errors)))
 );

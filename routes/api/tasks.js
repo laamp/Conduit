@@ -46,6 +46,17 @@ router.get('/project/:projectId', (req, res) => {
         .catch(err => res.status(404).json({ tasks: 'Could not find any tasks associated with that project' }));
 });
 
+// get all inbox tasks from the current user
+router.get('/inbox/:userId', (req, res) => {
+    Task.find({ project: null, owner: req.params.userId })
+        .then(tasks => {
+            let tasksJSON = {};
+            tasks.forEach(task => tasksJSON[task._id] = task);
+            res.json(tasksJSON);
+        })
+        .catch(err => res.status(404).json({ tasks: "Could not find any tasks in that user's inbox" }));
+});
+
 // create a task
 router.post('/', passport.authenticate('jwt', { session: false }),
     (req, res) => {

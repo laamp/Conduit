@@ -9,7 +9,7 @@ class NavBar extends React.Component {
         this.state = {
             bFetchedProjects: false,
             projects: {},
-            inboxTasks: {}
+            inboxCount: 0
         };
 
         this.logoutUser = this.logoutUser.bind(this);
@@ -17,7 +17,14 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchInboxTasks();
+        if (this.props.loggedIn && this.props.currentUser && !this.state.bFetchedInbox) {
+            this.props.fetchInboxTasks(this.props.currentUser.id)
+                .then(res => {
+                    this.setState({
+                        inboxCount: Object.entries(this.props.inboxTasks).length // TODO: refresh this when a different user logs in
+                    });
+                });
+        }
 
         if (this.props.loggedIn &&
             this.props.currentUser !== undefined &&
@@ -30,15 +37,6 @@ class NavBar extends React.Component {
                     });
                 });
         }
-
-        // if (this.state.tasks) {
-        //     this.props.fetchInboxTasks()
-        //         .then(res => {
-        //             this.setState({
-        //                 inboxTasks: this.props.tasks.inboxTasks
-        //             }, () => console.log(this.state.inboxTasks));
-        //         });
-        // }
     }
 
     componentDidUpdate() {
@@ -62,7 +60,7 @@ class NavBar extends React.Component {
                     <li key={`project-inbox`}
                         onClick={() => this.props.setCurrentProject('inbox')}>
                         <p>Inbox</p>
-                        <p>{Object.entries(this.state.inboxTasks).length}</p>
+                        <p>{this.state.inboxCount}</p>
                     </li>
 
                     {Object.keys(this.state.projects).map((projectId, i) => (
@@ -76,6 +74,16 @@ class NavBar extends React.Component {
                 </ul>
             );
         }
+
+        return (
+            <ul>
+                <li key={`project-inbox`}
+                    onClick={() => this.props.setCurrentProject('inbox')}>
+                    <p>Inbox</p>
+                    <p>{this.state.inboxCount}</p>
+                </li>
+            </ul>
+        );
     }
 
     logoutUser(e) {
