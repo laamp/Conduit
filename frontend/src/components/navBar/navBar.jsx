@@ -9,7 +9,9 @@ class NavBar extends React.Component {
         this.state = {
             bFetchedProjects: false,
             projects: {},
-            inboxCount: 0
+            bFetchedInboxTasks: false,
+            inboxCount: 0,
+            lastUser: null
         };
 
         this.logoutUser = this.logoutUser.bind(this);
@@ -17,39 +19,58 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.loggedIn && this.props.currentUser && !this.state.bFetchedInbox) {
-            this.props.fetchInboxTasks(this.props.currentUser.id)
-                .then(res => {
-                    this.setState({
-                        inboxCount: Object.entries(this.props.inboxTasks).length // TODO: refresh this when a different user logs in
-                    });
+        // actions to dispatch on user log in
+        if (this.props.loggedIn && this.props.currentUser) {
+            // check if the same user is logged in
+            if (this.state.lastUser !== this.props.currentUser.id) {
+                this.setState({
+                    bFetchedProjects: false,
+                    bFetchedInboxTasks: false,
+                    lastUser: this.props.currentUser.id
                 });
-        }
+            }
 
-        if (this.props.loggedIn &&
-            this.props.currentUser !== undefined &&
-            !this.state.bFetchedProjects) {
-            this.props.fetchUsersProjects(this.props.currentUser.id)
-                .then(res => {
-                    this.setState({
-                        bFetchedProjects: true,
-                        projects: this.props.projects
+            if (!this.state.bFetchedProjects) {
+                this.setState({ bFetchedProjects: true });
+                this.props.fetchUsersProjects(this.props.currentUser.id)
+                    .then(res => this.setState({ projects: this.props.projects }));
+            }
+
+            if (!this.state.bFetchedInboxTasks) {
+                this.setState({ bFetchedInboxTasks: true });
+                this.props.fetchInboxTasks(this.props.currentUser.id)
+                    .then(res => {
+                        this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
                     });
-                });
+            }
         }
     }
 
     componentDidUpdate() {
-        if (this.props.loggedIn &&
-            this.props.currentUser !== undefined &&
-            !this.state.bFetchedProjects) {
-            this.props.fetchUsersProjects(this.props.currentUser.id)
-                .then(res => {
-                    this.setState({
-                        bFetchedProjects: true,
-                        projects: this.props.projects
-                    });
+        // actions to dispatch on user log in
+        if (this.props.loggedIn && this.props.currentUser) {
+            // check if the same user is logged in
+            if (this.state.lastUser !== this.props.currentUser.id) {
+                this.setState({
+                    bFetchedProjects: false,
+                    bFetchedInboxTasks: false,
+                    lastUser: this.props.currentUser.id
                 });
+            }
+
+            if (!this.state.bFetchedProjects) {
+                this.setState({ bFetchedProjects: true });
+                this.props.fetchUsersProjects(this.props.currentUser.id)
+                    .then(res => this.setState({ projects: this.props.projects }));
+            }
+
+            if (!this.state.bFetchedInboxTasks) {
+                this.setState({ bFetchedInboxTasks: true });
+                this.props.fetchInboxTasks(this.props.currentUser.id)
+                    .then(res => {
+                        this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
+                    });
+            }
         }
     }
 

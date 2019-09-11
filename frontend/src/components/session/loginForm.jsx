@@ -11,6 +11,7 @@ class LoginForm extends React.Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleGuestLogin = this.handleGuestLogin.bind(this);
         this.renderErrors = this.renderErrors.bind(this);
     }
 
@@ -35,6 +36,10 @@ class LoginForm extends React.Component {
         this.props.login(user);
     }
 
+    handleGuestLogin() {
+        this.props.guestLogin();
+    }
+
     renderErrors() {
         return (
             <ul>
@@ -50,10 +55,10 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.props.guestLogin}>Guest Login</button>
+                <button onClick={this.handleGuestLogin}>Guest Login</button>
                 <form onSubmit={this.handleSubmit}>
                     <div>
-                        <input type='text'
+                        <input type='email'
                             value={this.state.email}
                             onChange={this.update('email')}
                             placeholder='Email (you@email.com)'
