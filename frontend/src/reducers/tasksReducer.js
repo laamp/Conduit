@@ -1,9 +1,15 @@
 import {
     RECEIVE_PROJECT_TASKS,
-    RECEIVE_INBOX_TASKS
+    RECEIVE_INBOX_TASKS,
+    CLEAR_TASKS
 } from '../actions/tasksActions';
 
-export default function (state = {}, action) {
+const initialState = {
+    tasks: {},
+    inboxTasks: {}
+};
+
+export default function (state = initialState, action) {
     Object.freeze(state);
     switch (action.type) {
         case RECEIVE_PROJECT_TASKS:
@@ -16,6 +22,8 @@ export default function (state = {}, action) {
                 ...state,
                 inboxTasks: action.tasks.data
             };
+        case CLEAR_TASKS:
+            return { inboxTasks: {} };
         default:
             return state;
     }

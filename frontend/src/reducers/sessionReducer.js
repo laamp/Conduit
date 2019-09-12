@@ -8,7 +8,7 @@ import {
 const initialState = {
     isAuthenticated: false,
     isSignedIn: false,
-    user: undefined,
+    user: null,
     currentProject: null
 };
 
@@ -18,12 +18,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: !!action.currentUser,
-                user: action.currentUser
+                user: action.currentUser,
+                currentProject: null
             };
         case RECEIVE_USER_SIGN_IN:
             return {
                 ...state,
-                isSignedIn: true
+                isSignedIn: true,
+                currentProject: null
             };
         case RECEIVE_USER_LOGOUT:
             return initialState;

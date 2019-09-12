@@ -139,7 +139,7 @@ async function seed(clear = false) {
     tasks[2].project = projects[1].id;
     projects[1].tasks.push(tasks[2].id);
     await projects[1].save();
-    tasks[2].owner = users[2].id;
+    tasks[2].owner = users[0].id;
     tasks[2].assignee = users[1].id;
     await tasks[2].save();
     users[1].assignedTasks.push(tasks[2].id);
@@ -150,7 +150,7 @@ async function seed(clear = false) {
     tasks[3].project = projects[1].id;
     projects[1].tasks.push(tasks[3].id);
     await projects[1].save();
-    tasks[3].owner = users[2].id;
+    tasks[3].owner = users[0].id;
     tasks[3].assignee = users[1].id;
     await tasks[3].save();
     users[1].assignedTasks.push(tasks[3].id);
@@ -158,12 +158,12 @@ async function seed(clear = false) {
     users[2].tasks.push(tasks[3].id);
     await users[2].save();
 
-    tasks[4].owner = users[1].id;
+    tasks[4].owner = users[0].id;
     await tasks[4].save();
     users[1].tasks.push(tasks[4].id);
     await users[1].save();
 
-    tasks[5].owner = users[1].id;
+    tasks[5].owner = users[0].id;
     await tasks[5].save();
     users[1].tasks.push(tasks[5].id);
     await users[1].save();

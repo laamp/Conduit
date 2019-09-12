@@ -114,6 +114,7 @@ class NavBar extends React.Component {
             projects: {}
         });
         this.props.clearProjects();
+        this.props.clearTasks();
         this.props.logout();
         this.props.history.push('/');
     }

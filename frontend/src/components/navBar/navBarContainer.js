@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchUsersProjects, clearProjects } from '../../actions/projectsActions';
-import { fetchInboxTasks } from '../../actions/tasksActions';
+import { fetchInboxTasks, clearTasks } from '../../actions/tasksActions';
 import { logout, setCurrentProject } from '../../actions/sessionActions';
 
 import NavBar from './navBar';
@@ -16,9 +16,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     fetchUsersProjects: userId => dispatch(fetchUsersProjects(userId)),
-    clearProjects: () => dispatch(clearProjects()),
     setCurrentProject: project => dispatch(setCurrentProject(project)),
-    fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId))
+    fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId)),
+    clearProjects: () => dispatch(clearProjects()),
+    clearTasks: () => dispatch(clearTasks())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
