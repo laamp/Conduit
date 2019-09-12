@@ -111,7 +111,10 @@ class NavBar extends React.Component {
         e.preventDefault();
         this.setState({
             bFetchedProjects: false,
-            projects: {}
+            projects: {},
+            bFetchedInboxTasks: false,
+            inboxCount: 0,
+            lastUser: null
         });
         this.props.clearProjects();
         this.props.clearTasks();

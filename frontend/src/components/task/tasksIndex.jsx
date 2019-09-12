@@ -14,6 +14,21 @@ class TasksIndex extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.currentProjectId) {
+            this.props.fetchProjectTasks(this.props.currentProjectId)
+                .then(res => {
+                    this.setState({ currentProjectTasks: this.props.tasks });
+                });
+        }
+
+        let lsProjId = localStorage.getItem('currentProject');
+        if (lsProjId && lsProjId !== 'inbox') {
+            this.setState({ lastProjectId: lsProjId });
+            this.props.fetchProjectTasks(lsProjId)
+                .then(res => {
+                    this.setState({ currentProjectTasks: this.props.tasks });
+                });
+        }
     }
 
     componentDidUpdate() {
@@ -26,13 +41,16 @@ class TasksIndex extends React.Component {
 
         if (this.props.currentProjectId !== this.state.lastProjectId &&
             this.props.currentProjectId !== null &&
-            this.props.currentProjectId !== undefined &&
-            this.props.currentProjectId !== 'inbox') {
+            this.props.currentProjectId !== undefined) {
             this.setState({ lastProjectId: this.props.currentProjectId });
-            this.props.fetchProjectTasks(this.props.currentProjectId)
-                .then(res => {
-                    this.setState({ currentProjectTasks: this.props.tasks });
-                });
+            if (this.props.currentProjectId !== 'inbox') {
+                this.props.fetchProjectTasks(this.props.currentProjectId)
+                    .then(res => {
+                        this.setState({ currentProjectTasks: this.props.tasks });
+                    });
+            } else {
+                this.setState({ inboxTasks: this.props.inboxTasks });
+            }
         }
     }
 

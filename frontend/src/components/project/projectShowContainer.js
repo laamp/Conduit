@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { setCurrentProject } from '../../actions/sessionActions';
 import ProjectShow from './projectShow';
 
 const mapStateToProps = ({ entities, session }) => ({
@@ -7,7 +8,7 @@ const mapStateToProps = ({ entities, session }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+    setCurrentProject: projectId => dispatch(setCurrentProject(projectId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectShow);

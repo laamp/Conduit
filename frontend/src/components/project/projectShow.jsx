@@ -17,6 +17,12 @@ class ProjectShow extends React.Component {
                 currentProjectId: 'inbox'
             });
         }
+
+        if (localStorage.getItem('currentProject')) {
+            this.setState({
+                currentProjectId: localStorage.getItem('currentProject')
+            });
+        }
     }
 
     componentDidUpdate() {
@@ -45,8 +51,6 @@ class ProjectShow extends React.Component {
         return (
             <>
                 <h1>{this.props.projects[this.state.currentProjectId].title}</h1>
-                {/* display list of all tasks here */}
-                {/* Tasks Index Component */}
                 <TasksIndexContainer projectId={this.state.currentProjectId} />
             </>
         );
