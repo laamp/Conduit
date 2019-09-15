@@ -25,7 +25,13 @@ class ProjectShow extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        const oldUrl = prevProps.match.params.projectId;
+        const newUrl = this.props.match.params.projectId;
+        if (newUrl !== oldUrl) {
+            this.props.setCurrentProject(newUrl);
+        }
+
         if (this.state.currentProjectId !== localStorage.getItem('currentProject') &&
             localStorage.getItem('currentProject')) {
             this.setState({

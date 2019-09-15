@@ -79,7 +79,10 @@ class NavBar extends React.Component {
             return (
                 <ul>
                     <li key={`project-inbox`}
-                        onClick={() => this.props.setCurrentProject('inbox')}>
+                        onClick={() => {
+                            this.props.history.push('/project/inbox');
+                            this.props.setCurrentProject('inbox');
+                        }}>
                         <p>Inbox</p>
                         <p>{this.state.inboxCount}</p>
                     </li>
@@ -87,6 +90,7 @@ class NavBar extends React.Component {
                     {Object.keys(this.state.projects).map((projectId, i) => (
                         <li key={`project-${i}`}
                             onClick={() => {
+                                this.props.history.push(`/project/${projectId}`);
                                 this.props.setCurrentProject(projectId);
                             }}>
                             <ProjectTile project={this.state.projects[projectId]} />
@@ -130,6 +134,7 @@ class NavBar extends React.Component {
                     <p>You are currently logged in</p>
                     {this.renderProjects()}
                     <button onClick={this.logoutUser}>Logout</button>
+                    <button onClick={() => this.props.history.push('/project/new')}>Create Project</button>
                 </div>
             );
         } else {
