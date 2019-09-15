@@ -14,20 +14,19 @@ class TasksIndex extends React.Component {
     }
 
     componentDidMount() {
+        this.props.fetchInboxTasks(this.props.currentUserId)
+            .then(res => this.setState({ inboxTasks: this.props.inboxTasks }));
+
         if (this.props.currentProjectId) {
             this.props.fetchProjectTasks(this.props.currentProjectId)
-                .then(res => {
-                    this.setState({ currentProjectTasks: this.props.tasks });
-                });
+                .then(res => this.setState({ currentProjectTasks: this.props.tasks }));
         }
 
         let lsProjId = localStorage.getItem('currentProject');
-        if (lsProjId && lsProjId !== 'inbox') {
+        if (lsProjId) {
             this.setState({ lastProjectId: lsProjId });
             this.props.fetchProjectTasks(lsProjId)
-                .then(res => {
-                    this.setState({ currentProjectTasks: this.props.tasks });
-                });
+                .then(res => this.setState({ currentProjectTasks: this.props.tasks }));
         }
     }
 
@@ -43,14 +42,12 @@ class TasksIndex extends React.Component {
             this.props.currentProjectId !== null &&
             this.props.currentProjectId !== undefined) {
             this.setState({ lastProjectId: this.props.currentProjectId });
-            if (this.props.currentProjectId !== 'inbox') {
-                this.props.fetchProjectTasks(this.props.currentProjectId)
-                    .then(res => {
-                        this.setState({ currentProjectTasks: this.props.tasks });
-                    });
-            } else {
-                this.setState({ inboxTasks: this.props.inboxTasks });
-            }
+
+            this.props.fetchProjectTasks(this.props.currentProjectId)
+                .then(res => this.setState({ currentProjectTasks: this.props.tasks }));
+
+            this.props.fetchInboxTasks(this.props.currentUserId)
+                .then(res => this.setState({ inboxTasks: this.props.inboxTasks }));
         }
     }
 

@@ -23,7 +23,7 @@ export default function (state = initialState, action) {
                 inboxTasks: action.tasks.data
             };
         case CLEAR_TASKS:
-            return { inboxTasks: {} };
+            return initialState;
         default:
             return state;
     }

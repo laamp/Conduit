@@ -7,6 +7,7 @@ import configureStore from './store/store';
 import { setAuthToken } from './util/sessionApiUtil';
 import { logout } from './actions/sessionActions';
 
+import './styles/reset.scss';
 import './styles/style.scss';
 
 // Debugging section

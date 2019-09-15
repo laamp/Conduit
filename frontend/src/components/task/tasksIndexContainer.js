@@ -5,7 +5,8 @@ import { fetchProjectTasks, fetchInboxTasks } from '../../actions/tasksActions';
 const mapStateToProps = ({ entities, session }) => ({
     tasks: entities.tasks.tasks,
     inboxTasks: entities.tasks.inboxTasks,
-    currentProjectId: session.currentProject
+    currentProjectId: session.currentProject,
+    currentUserId: session.user.id
 });
 
 const mapDispatchToProps = dispatch => ({

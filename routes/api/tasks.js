@@ -34,7 +34,7 @@ router.get('/user/:userId', (req, res) => {
 // get all tasks from a project
 router.get('/project/:projectId', (req, res) => {
     let parsedId = '';
-    if (req.params.projectId === 'null') parsedId = null;
+    if (req.params.projectId === 'inbox') parsedId = null;
     else parsedId = req.params.projectId;
 
     Task.find({ project: parsedId })
