@@ -74,41 +74,9 @@ class NavBar extends React.Component {
         }
     }
 
-    renderProjects() {
-        if (Object.entries(this.state.projects).length > 0 && this.state.projects.constructor === Object) {
-            return (
-                <ul>
-                    <li key={`project-inbox`}
-                        onClick={() => {
-                            this.props.history.push('/project/inbox');
-                            this.props.setCurrentProject('inbox');
-                        }}>
-                        <p>Inbox</p>
-                        <p>{this.state.inboxCount}</p>
-                    </li>
-
-                    {Object.keys(this.state.projects).map((projectId, i) => (
-                        <li key={`project-${i}`}
-                            onClick={() => {
-                                this.props.history.push(`/project/${projectId}`);
-                                this.props.setCurrentProject(projectId);
-                            }}>
-                            <ProjectTile project={this.state.projects[projectId]} />
-                        </li>
-                    ))}
-                </ul>
-            );
-        }
-
-        return (
-            <ul>
-                <li key={`project-inbox`}
-                    onClick={() => this.props.setCurrentProject('inbox')}>
-                    <p>Inbox</p>
-                    <p>{this.state.inboxCount}</p>
-                </li>
-            </ul>
-        );
+    navToProject(projId) {
+        this.props.history.push(`/project/${projId}`);
+        this.props.setCurrentProject(projId);
     }
 
     logoutUser(e) {
@@ -124,6 +92,26 @@ class NavBar extends React.Component {
         this.props.clearTasks();
         this.props.logout();
         this.props.history.push('/');
+    }
+
+    renderProjects() {
+        return (
+            <ul>
+                <li key={`project-inbox`}
+                    onClick={() => this.navToProject('inbox')}>
+                    <p>Inbox</p>
+                    <p>{this.state.inboxCount}</p>
+                </li>
+
+                {Object.entries(this.state.projects).length > 0 && this.state.projects.constructor === Object ?
+                    Object.keys(this.state.projects).map((projectId, i) => (
+                        <li key={`project-${i}`}
+                            onClick={() => this.navToProject(projectId)}>
+                            <ProjectTile project={this.state.projects[projectId]} />
+                        </li>
+                    )) : null}
+            </ul>
+        );
     }
 
     getLinks() {
