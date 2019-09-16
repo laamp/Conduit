@@ -28,7 +28,7 @@ class ProjectShow extends React.Component {
     componentDidUpdate(prevProps) {
         const oldUrl = prevProps.match.params.projectId;
         const newUrl = this.props.match.params.projectId;
-        if (newUrl !== oldUrl) {
+        if (newUrl !== oldUrl && newUrl !== 'new') {
             this.props.setCurrentProject(newUrl);
         }
 
@@ -41,25 +41,15 @@ class ProjectShow extends React.Component {
     }
 
     projectRender() {
-        if (this.state.currentProjectId === 'inbox') {
-            return (
-                <>
-                    <h1>Inbox</h1>
-                    <TasksIndexContainer projectId={this.state.currentProjectId} />
-                </>
-            );
-        }
+        if (this.props.projects[this.state.currentProjectId] ||
+            this.state.currentProjectId === 'inbox') {
 
-        if (!this.props.projects[this.state.currentProjectId]) {
-            return null;
-        }
-
-        return (
-            <>
-                <h1>{this.props.projects[this.state.currentProjectId].title}</h1>
+            return (<>
+                {this.state.currentProjectId === 'inbox' ? <h1>Inbox</h1> :
+                    <h1>{this.props.projects[this.state.currentProjectId].title}</h1>}
                 <TasksIndexContainer projectId={this.state.currentProjectId} />
-            </>
-        );
+            </>);
+        }
     }
 
     render() {

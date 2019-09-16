@@ -65,12 +65,6 @@ class TasksIndex extends React.Component {
             );
         }
 
-        if (!this.props.projectId) {
-            return (
-                <h1>no project to display right now</h1>
-            );
-        }
-
         if (this.state.currentProjectTasks) {
             return (
                 <ul>
@@ -83,10 +77,6 @@ class TasksIndex extends React.Component {
                 </ul>
             );
         }
-
-        return (
-            <h1>ERROR: nothing to display right now</h1>
-        );
     }
 }
 

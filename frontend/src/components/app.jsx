@@ -7,6 +7,7 @@ import NavBarContainer from './navBar/navBarContainer';
 import SignupFormContainer from './session/signupFormContainer';
 import LoginFormContainer from './session/loginFormContainer';
 import ProjectShowContainer from './project/projectShowContainer';
+import ProjectFormContainer from './project/projectFormContainer';
 
 const App = () => (
     <>
@@ -17,7 +18,7 @@ const App = () => (
             <AuthRoute exact path='/login' component={LoginFormContainer} /> {/* component for logging in */}
         </Switch>
         <ProtectedRoute path='/project/:projectId' component={ProjectShowContainer} /> {/* render the selected project */}
-        <ProtectedRoute path='/project/new' component={MainPage} /> {/* render the create new project modal */}
+        <ProtectedRoute path='/project/new' component={ProjectFormContainer} /> {/* render the create new project modal */}
     </>
 );
 

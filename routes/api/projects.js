@@ -56,7 +56,9 @@ router.post('/', passport.authenticate('jwt', { session: false }),
                     .then(user => {
                         user.projects.push(project.id);
                         user.save();
-                        res.json(project);
+
+                        let projectJSON = { [project._id]: project };
+                        res.json(projectJSON);
                     })
                     .catch(err => console.log(err));
             })
