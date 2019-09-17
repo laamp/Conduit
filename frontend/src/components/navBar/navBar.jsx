@@ -46,14 +46,14 @@ class NavBar extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         // actions to dispatch on user log in
         if (this.props.loggedIn && this.props.currentUser) {
             // check if the same user is logged in
             if (this.state.lastUser !== this.props.currentUser.id) {
                 this.setState({
-                    bFetchedProjects: false,
                     bFetchedInboxTasks: false,
+                    bFetchedProjects: false,
                     lastUser: this.props.currentUser.id
                 });
             }
@@ -103,11 +103,11 @@ class NavBar extends React.Component {
                     <p>{this.state.inboxCount}</p>
                 </li>
 
-                {Object.entries(this.state.projects).length > 0 && this.state.projects.constructor === Object ?
-                    Object.keys(this.state.projects).map((projectId, i) => (
+                {Object.entries(this.props.projects).length > 0 && this.props.projects.constructor === Object ?
+                    Object.keys(this.props.projects).map((projectId, i) => (
                         <li key={`project-${i}`}
                             onClick={() => this.navToProject(projectId)}>
-                            <ProjectTile project={this.state.projects[projectId]} />
+                            <ProjectTile project={this.props.projects[projectId]} />
                         </li>
                     )) : null}
             </ul>
