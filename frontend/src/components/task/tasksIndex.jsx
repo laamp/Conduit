@@ -6,48 +6,30 @@ class TasksIndex extends React.Component {
         super(props);
 
         this.state = {
-            inboxTasks: {},
-            bUpdatedInbox: false,
-            lastProjectId: null,
-            currentProjectTasks: {}
+            renderTrigger: false
         };
     }
 
     componentDidMount() {
-        this.props.fetchInboxTasks(this.props.currentUserId)
-            .then(res => this.setState({ inboxTasks: this.props.inboxTasks }));
+        this.props.fetchInboxTasks(this.props.currentUserId);
 
         if (this.props.currentProjectId) {
-            this.props.fetchProjectTasks(this.props.currentProjectId)
-                .then(res => this.setState({ currentProjectTasks: this.props.tasks }));
+            this.props.fetchProjectTasks(this.props.currentProjectId);
         }
 
         let lsProjId = localStorage.getItem('currentProject');
         if (lsProjId) {
-            this.setState({ lastProjectId: lsProjId });
-            this.props.fetchProjectTasks(lsProjId)
-                .then(res => this.setState({ currentProjectTasks: this.props.tasks }));
+            this.props.fetchProjectTasks(lsProjId);
         }
     }
 
-    componentDidUpdate() {
-        if (!this.state.bUpdatedInbox) {
-            this.setState({
-                inboxTasks: this.props.inboxTasks,
-                bUpdatedInbox: true
-            });
-        }
-
-        if (this.props.currentProjectId !== this.state.lastProjectId &&
+    componentDidUpdate(prevProps) {
+        if (this.props.currentProjectId !== prevProps.currentProjectId &&
             this.props.currentProjectId !== null &&
             this.props.currentProjectId !== undefined) {
-            this.setState({ lastProjectId: this.props.currentProjectId });
 
-            this.props.fetchProjectTasks(this.props.currentProjectId)
-                .then(res => this.setState({ currentProjectTasks: this.props.tasks }));
-
-            this.props.fetchInboxTasks(this.props.currentUserId)
-                .then(res => this.setState({ inboxTasks: this.props.inboxTasks }));
+            this.props.fetchProjectTasks(this.props.currentProjectId);
+            this.props.fetchInboxTasks(this.props.currentUserId);
         }
     }
 
@@ -65,10 +47,10 @@ class TasksIndex extends React.Component {
             );
         }
 
-        if (this.state.currentProjectTasks) {
+        if (this.props.tasks) {
             return (
                 <ul>
-                    {Object.values(this.state.currentProjectTasks).map((task, i) => (
+                    {Object.values(this.props.tasks).map((task, i) => (
                         <li key={`task-${i}`}>
                             <p>{task.title}</p>
                             <p>{task.description}</p>

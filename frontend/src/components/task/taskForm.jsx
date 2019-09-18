@@ -31,6 +31,12 @@ class TaskForm extends React.Component {
         };
 
         this.props.createTask(task);
+
+        this.setState({
+            title: '',
+            description: '',
+            dueDate: ''
+        });
     }
 
     render() {
