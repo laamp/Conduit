@@ -12,8 +12,7 @@ const mapStateToProps = ({ entities, session }) => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchProjectTasks: projectId => dispatch(fetchProjectTasks(projectId)),
-    fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId)),
-    setCurrentProject: projectId => dispatch(setCurrentProject(projectId))
+    fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksIndex);

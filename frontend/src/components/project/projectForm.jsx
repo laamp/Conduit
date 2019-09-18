@@ -29,7 +29,6 @@ class ProjectForm extends React.Component {
 
         this.props.createNewProject(newProject)
             .then(({ project }) => {
-                console.log(project);
                 this.props.history.push(`/project/${Object.keys(project.data)[0]}`);
                 this.props.setCurrentProject(Object.keys(project.data)[0]);
             });

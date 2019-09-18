@@ -6,7 +6,6 @@ class TasksIndex extends React.Component {
         super(props);
 
         this.state = {
-            renderTrigger: false
         };
     }
 
@@ -34,7 +33,7 @@ class TasksIndex extends React.Component {
     }
 
     render() {
-        if (this.props.projectId === 'inbox') {
+        if (this.props.projectId === 'inbox' && this.props.inboxTasks) {
             return (
                 <ul>
                     {Object.entries(this.props.inboxTasks).map((task, i) => (

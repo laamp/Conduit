@@ -8,7 +8,7 @@ class ProjectShow extends React.Component {
         super(props);
 
         this.state = {
-            currentProjectId: localStorage.getItem('currentProject')
+            currentProjectId: localStorage.getItem('currentProject'),
         };
     }
 
@@ -27,12 +27,6 @@ class ProjectShow extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const oldUrl = prevProps.match.params.projectId;
-        const newUrl = this.props.match.params.projectId;
-        if (newUrl !== oldUrl && newUrl !== 'new') {
-            this.props.setCurrentProject(newUrl);
-        }
-
         if (this.state.currentProjectId !== localStorage.getItem('currentProject') &&
             localStorage.getItem('currentProject')) {
             this.setState({
