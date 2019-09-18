@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import TasksIndexContainer from '../task/tasksIndexContainer';
+import TaskFormContainer from '../task/taskFormContainer';
 
 class ProjectShow extends React.Component {
     constructor(props) {
@@ -47,6 +48,8 @@ class ProjectShow extends React.Component {
             return (<>
                 {this.state.currentProjectId === 'inbox' ? <h1>Inbox</h1> :
                     <h1>{this.props.projects[this.state.currentProjectId].title}</h1>}
+
+                <TaskFormContainer projectId={this.state.currentProjectId} />
                 <TasksIndexContainer projectId={this.state.currentProjectId} />
             </>);
         }

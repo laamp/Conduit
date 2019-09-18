@@ -7,3 +7,7 @@ export const getProjectTasks = projectId => (
 export const getInboxTasks = userId => (
     axios.get(`/api/tasks/inbox/${userId}`)
 );
+
+export const createTask = task => (
+    axios.post('/api/tasks', task)
+);

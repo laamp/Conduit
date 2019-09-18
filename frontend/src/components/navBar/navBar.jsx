@@ -8,7 +8,6 @@ class NavBar extends React.Component {
 
         this.state = {
             bFetchedProjects: false,
-            projects: {},
             bFetchedInboxTasks: false,
             inboxCount: 0,
             lastUser: null
@@ -32,8 +31,7 @@ class NavBar extends React.Component {
 
             if (!this.state.bFetchedProjects) {
                 this.setState({ bFetchedProjects: true });
-                this.props.fetchUsersProjects(this.props.currentUser.id)
-                    .then(res => this.setState({ projects: this.props.projects }));
+                this.props.fetchUsersProjects(this.props.currentUser.id);
             }
 
             if (!this.state.bFetchedInboxTasks) {
@@ -60,8 +58,7 @@ class NavBar extends React.Component {
 
             if (!this.state.bFetchedProjects) {
                 this.setState({ bFetchedProjects: true });
-                this.props.fetchUsersProjects(this.props.currentUser.id)
-                    .then(res => this.setState({ projects: this.props.projects }));
+                this.props.fetchUsersProjects(this.props.currentUser.id);
             }
 
             if (!this.state.bFetchedInboxTasks) {
@@ -83,7 +80,6 @@ class NavBar extends React.Component {
         e.preventDefault();
         this.setState({
             bFetchedProjects: false,
-            projects: {},
             bFetchedInboxTasks: false,
             inboxCount: 0,
             lastUser: null

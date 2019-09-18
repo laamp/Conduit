@@ -55,7 +55,7 @@ class TasksIndex extends React.Component {
         if (this.props.projectId === 'inbox') {
             return (
                 <ul>
-                    {Object.entries(this.state.inboxTasks).map((task, i) => (
+                    {Object.entries(this.props.inboxTasks).map((task, i) => (
                         <li key={`task-${i}`}>
                             <p>{task[1].title}</p>
                             <p>{task[1].description}</p>
