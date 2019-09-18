@@ -1,6 +1,7 @@
 import {
     RECEIVE_PROJECT_TASKS,
     RECEIVE_INBOX_TASKS,
+    RECEIVE_NEW_TASK,
     CLEAR_TASKS
 } from '../actions/tasksActions';
 
@@ -22,6 +23,9 @@ export default function (state = initialState, action) {
                 ...state,
                 inboxTasks: action.tasks.data
             };
+        case RECEIVE_NEW_TASK:
+            let newTasks = Object.assign({}, state.tasks, action.task.data);
+            return { tasks: newTasks, inboxTasks: state.inboxTasks };
         case CLEAR_TASKS:
             return initialState;
         default:

@@ -17,7 +17,8 @@ const TaskSchema = new Schema({
     },
     dueDate: {
         type: Date,
-        required: false
+        required: false,
+        default: null
     },
     assignee: {
         type: Schema.Types.ObjectId,

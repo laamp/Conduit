@@ -64,11 +64,17 @@ router.post('/', passport.authenticate('jwt', { session: false }),
 
         if (!isValid) return res.status(400).json(errors);
 
+        let projectId = req.body.project;
+        if (projectId === '' || projectId === 'inbox') {
+            projectId = null;
+        }
+
         const newTask = new Task({
             title: req.body.title,
             description: req.body.description,
             dueDate: req.body.dueDate,
-            owner: req.user.id
+            owner: req.user.id,
+            project: projectId
         });
 
         newTask.save()
@@ -77,9 +83,20 @@ router.post('/', passport.authenticate('jwt', { session: false }),
                     .then(user => {
                         user.tasks.push(task.id);
                         user.save();
-                        res.json(task);
                     })
                     .catch(err => console.log(err));
+
+                if (task.project) {
+                    Project.findById(task.project)
+                        .then(project => {
+                            project.tasks.push(task._id);
+                            project.save();
+                        })
+                        .catch(err => console.log(err));
+                }
+
+                const taskJSON = { [task._id]: task };
+                res.json(taskJSON);
             });
     }
 );

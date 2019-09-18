@@ -26,17 +26,16 @@ class TaskForm extends React.Component {
         const task = {
             title: this.state.title,
             description: this.state.description,
-            dueDate: this.state.dueDate
+            dueDate: this.state.dueDate,
+            project: this.props.projectId
         };
 
-        console.log(task);
-
-        // this.props.createTask(task);
+        this.props.createTask(task);
     }
 
     render() {
         return (
-            <form onClick={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <input type="text"
                     value={this.state.title}
                     onChange={this.update('title')}
