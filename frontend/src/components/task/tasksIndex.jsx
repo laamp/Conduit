@@ -27,7 +27,7 @@ class TasksIndex extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.currentProjectId !== prevProps.currentProjectId &&
-            this.props.currentProjectId !== null &&
+            this.props.currentProjectId &&
             this.props.currentProjectId !== 'inbox') {
 
             this.props.fetchProjectTasks(this.props.currentProjectId);

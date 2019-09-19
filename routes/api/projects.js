@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 // get a specific project
 router.get('/:id', (req, res) => {
     Project.findById(req.params.id)
-        .then(project => res.json(project))
+        .then(project => ({ [project._id]: project }))
         .catch(err => res.status(404).json({ projects: 'Could not find project with that id' }));
 });
 

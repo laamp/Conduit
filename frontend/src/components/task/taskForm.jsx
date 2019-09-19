@@ -30,13 +30,18 @@ class TaskForm extends React.Component {
             project: this.props.projectId
         };
 
-        this.props.createTask(task);
+        this.props.createTask(task).then(res => {
+            console.log(this.props.fetchProject);
+            this.props.fetchProject(this.props.projectId);
+            this.props.fetchUsersProjects(this.props.currentUserId);
+        });
 
         this.setState({
             title: '',
             description: '',
             dueDate: ''
         });
+        this.props.fetchProject(this.props.projectId);
     }
 
     render() {

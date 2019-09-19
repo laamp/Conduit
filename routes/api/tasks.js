@@ -36,7 +36,6 @@ router.get('/project/:projectId', (req, res) => {
     let parsedId = '';
     if (req.params.projectId === 'inbox') {
         parsedId = null;
-        console.log("this shouldn't happen");
     } else parsedId = req.params.projectId;
 
     Task.find({ project: parsedId })

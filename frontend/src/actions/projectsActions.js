@@ -47,6 +47,12 @@ export const fetchUsersProjects = userId => dispatch => (
         .catch(errors => dispatch(receiveProjectErrors(errors)))
 );
 
+export const fetchProject = projectId => dispatch => (
+    APIUtil.getProject(projectId)
+        .then(project => dispatch(receiveProject(project)))
+        .catch(errors => dispatch(receiveProjectErrors(errors)))
+);
+
 export const createProject = project => dispatch => (
     APIUtil.createProject(project)
         .then(project => dispatch(receiveProject(project)))
