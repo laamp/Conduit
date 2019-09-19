@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
             };
         case RECEIVE_INBOX_TASKS:
             return {
-                ...state,
+                tasks: state.tasks,
                 inboxTasks: action.tasks.data
             };
         case RECEIVE_NEW_TASK:

@@ -34,8 +34,10 @@ router.get('/user/:userId', (req, res) => {
 // get all tasks from a project
 router.get('/project/:projectId', (req, res) => {
     let parsedId = '';
-    if (req.params.projectId === 'inbox') parsedId = null;
-    else parsedId = req.params.projectId;
+    if (req.params.projectId === 'inbox') {
+        parsedId = null;
+        console.log("this shouldn't happen");
+    } else parsedId = req.params.projectId;
 
     Task.find({ project: parsedId })
         .then(tasks => {

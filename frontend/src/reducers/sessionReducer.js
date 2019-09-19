@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case RECEIVE_USER_SIGN_IN:
             return {
-                ...state,
+                currentProject: 'inbox',
                 user: action.currentUser,
                 isAuthenticated: !!action.currentUser,
                 isSignedIn: true

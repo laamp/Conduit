@@ -10,14 +10,17 @@ class TasksIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchInboxTasks(this.props.currentUserId);
-
-        if (this.props.currentProjectId) {
+        if (this.props.currentProjectId &&
+            this.props.currentProjectId !== 'inbox') {
             this.props.fetchProjectTasks(this.props.currentProjectId);
         }
 
+        if (this.props.currentUserId) {
+            this.props.fetchInboxTasks(this.props.currentUserId);
+        }
+
         let lsProjId = localStorage.getItem('currentProject');
-        if (lsProjId) {
+        if (lsProjId && lsProjId !== 'inbox') {
             this.props.fetchProjectTasks(lsProjId);
         }
     }
@@ -25,7 +28,7 @@ class TasksIndex extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.currentProjectId !== prevProps.currentProjectId &&
             this.props.currentProjectId !== null &&
-            this.props.currentProjectId !== undefined) {
+            this.props.currentProjectId !== 'inbox') {
 
             this.props.fetchProjectTasks(this.props.currentProjectId);
             this.props.fetchInboxTasks(this.props.currentUserId);
