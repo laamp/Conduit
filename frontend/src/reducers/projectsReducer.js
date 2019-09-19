@@ -11,7 +11,6 @@ export default function (state = {}, action) {
             let newState = action.projects.data;
             return newState;
         case RECEIVE_PROJECT:
-            console.log('from projects reducer');
             return Object.assign({}, state, action.project.data);
         case CLEAR_PROJECTS:
             return {};

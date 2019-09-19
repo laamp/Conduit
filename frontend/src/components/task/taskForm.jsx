@@ -31,9 +31,7 @@ class TaskForm extends React.Component {
         };
 
         this.props.createTask(task).then(res => {
-            console.log(this.props.fetchProject);
             this.props.fetchProject(this.props.projectId);
-            this.props.fetchUsersProjects(this.props.currentUserId);
         });
 
         this.setState({
