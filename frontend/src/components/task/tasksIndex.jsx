@@ -52,12 +52,16 @@ class TasksIndex extends React.Component {
         if (this.props.tasks) {
             return (
                 <ul>
-                    {Object.values(this.props.tasks).map((task, i) => (
-                        <li key={`task-${i}`}>
-                            <p>{task.title}</p>
-                            <p>{task.description}</p>
-                        </li>
-                    ))}
+                    {Object.values(this.props.tasks).map((task, i) => {
+                        if (task.project === this.props.projectId) {
+                            return (
+                                <li key={`task-${i}`}>
+                                    <p>{task.title}</p>
+                                    <p>{task.description}</p>
+                                </li>
+                            );
+                        } else { return null; }
+                    })}
                 </ul>
             );
         }

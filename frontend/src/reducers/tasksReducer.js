@@ -2,7 +2,8 @@ import {
     RECEIVE_PROJECT_TASKS,
     RECEIVE_INBOX_TASKS,
     RECEIVE_NEW_TASK,
-    CLEAR_TASKS
+    CLEAR_TASKS,
+    RECEIVE_ALL_TASKS
 } from '../actions/tasksActions';
 
 const initialState = {
@@ -13,10 +14,17 @@ const initialState = {
 export default function (state = initialState, action) {
     Object.freeze(state);
     switch (action.type) {
+        case RECEIVE_ALL_TASKS:
+            let projTasks = {}, inboxTasks = {};
+            Object.entries(action.tasks.data).forEach(task => {
+                if (task[1].project) projTasks[task[0]] = task[1];
+                else inboxTasks[task[0]] = task[1];
+            });
+            return { tasks: projTasks, inboxTasks: inboxTasks };
         case RECEIVE_PROJECT_TASKS:
             return {
                 inboxTasks: state.inboxTasks,
-                tasks: action.tasks.data
+                tasks: Object.assign({}, state.tasks, action.tasks.data)
             };
         case RECEIVE_INBOX_TASKS:
             return {

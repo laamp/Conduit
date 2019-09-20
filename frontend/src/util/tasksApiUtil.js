@@ -11,3 +11,7 @@ export const getInboxTasks = userId => (
 export const createTask = task => (
     axios.post('/api/tasks', task)
 );
+
+export const getUsersTasks = userId => (
+    axios.get(`/api/tasks/owner/${userId}`)
+);

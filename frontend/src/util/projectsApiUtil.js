@@ -8,8 +8,6 @@ export const getProject = id => {
     return axios.get(`/api/projects/${id}`);
 };
 
-window.getProject = getProject;
-
 export const getUserProjects = userId => {
     return axios.get(`/api/projects/user/${userId}`);
 };

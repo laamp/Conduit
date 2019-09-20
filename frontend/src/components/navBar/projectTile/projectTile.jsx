@@ -1,8 +1,10 @@
 import React from 'react';
 
-export const ProjectTile = ({ project }) => (
-    <>
-        <p>{project.title}</p>
-        <p>{project.tasks.length}</p>
-    </>
-);
+export const ProjectTile = ({ project, numOfTasks }) => {
+    return (
+        <>
+            <p>{project.title}</p>
+            <p>{numOfTasks}</p>
+        </>
+    );
+}

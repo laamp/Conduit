@@ -41,10 +41,21 @@ class NavBar extends React.Component {
                         this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
                     });
             }
+
+            this.props.fetchAllTasks(this.props.currentUser.id);
         }
     }
 
     componentDidUpdate(prevProps) {
+        if (!prevProps.currentUser && this.props.currentUser) {
+            this.props.fetchAllTasks(this.props.currentUser.id);
+        }
+
+        const newTaskCount = Object.keys(this.props.inboxTasks).length;
+        if (newTaskCount !== Object.keys(prevProps.inboxTasks).length) {
+            this.setState({ inboxCount: newTaskCount });
+        }
+
         // actions to dispatch on user log in
         if (this.props.loggedIn && this.props.currentUser) {
             // check if the same user is logged in
@@ -100,12 +111,19 @@ class NavBar extends React.Component {
                 </li>
 
                 {Object.entries(this.props.projects).length > 0 && this.props.projects.constructor === Object ?
-                    Object.keys(this.props.projects).map((projectId, i) => (
-                        <li key={`project-${i}`}
-                            onClick={() => this.navToProject(projectId)}>
-                            <ProjectTile project={this.props.projects[projectId]} />
-                        </li>
-                    )) : null}
+                    Object.keys(this.props.projects).map((projectId, i) => {
+                        let tasks = Object.values(this.props.tasks).filter(task => task.project === projectId);
+
+                        return (
+                            <li key={`project-${i}`}
+                                onClick={() => this.navToProject(projectId)}>
+                                <ProjectTile
+                                    project={this.props.projects[projectId]}
+                                    numOfTasks={tasks.length}
+                                />
+                            </li>
+                        );
+                    }) : null}
             </ul>
         );
     }

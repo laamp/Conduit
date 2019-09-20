@@ -31,7 +31,9 @@ class TaskForm extends React.Component {
         };
 
         this.props.createTask(task).then(res => {
-            this.props.fetchProject(this.props.projectId);
+            if (this.props.projectId !== 'inbox') {
+                this.props.fetchProject(this.props.projectId);
+            }
         });
 
         this.setState({
@@ -39,7 +41,6 @@ class TaskForm extends React.Component {
             description: '',
             dueDate: ''
         });
-        this.props.fetchProject(this.props.projectId);
     }
 
     render() {
