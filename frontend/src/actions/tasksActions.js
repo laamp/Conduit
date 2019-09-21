@@ -7,6 +7,7 @@ export const CLEAR_TASKS = 'CLEAR_TASKS';
 export const RECEIVE_TASK_ERRORS = 'RECEIVE_TASK_ERRORS';
 export const CLEAR_TASK_ERRORS = 'CLEAR_TASK_ERRORS';
 export const RECEIVE_ALL_TASKS = 'RECEIVE_ALL_TASKS';
+export const RECEIVE_CHANGED_TASK = 'RECEIVE_CHANGED_TASK';
 
 export const receiveProjectTasks = tasks => ({
     type: RECEIVE_PROJECT_TASKS,
@@ -41,6 +42,11 @@ export const receiveAllTasks = tasks => ({
     tasks
 });
 
+export const receiveChangedTask = task => ({
+    type: RECEIVE_CHANGED_TASK,
+    task
+});
+
 export const fetchProjectTasks = projectId => dispatch => (
     APIUtil.getProjectTasks(projectId)
         .then(tasks => dispatch(receiveProjectTasks(tasks)))
@@ -66,5 +72,11 @@ export const clearErrors = () => dispatch => (
 export const fetchAllTasks = userId => dispatch => (
     APIUtil.getUsersTasks(userId)
         .then(tasks => dispatch(receiveAllTasks(tasks)))
+        .catch(errors => dispatch(receiveTaskErrors(errors)))
+);
+
+export const moveTask = blob => dispatch => (
+    APIUtil.moveTask(blob)
+        .then(task => dispatch(receiveChangedTask(task)))
         .catch(errors => dispatch(receiveTaskErrors(errors)))
 );

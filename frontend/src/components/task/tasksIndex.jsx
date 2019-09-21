@@ -5,8 +5,7 @@ class TasksIndex extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-        };
+        this.moveTask = this.moveTask.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +34,25 @@ class TasksIndex extends React.Component {
         }
     }
 
+    moveTask(e) {
+        this.props.moveTask(JSON.parse(e.target.value));
+    }
+
+    projectSelection(task) {
+        if (!this.props.projects) return null;
+
+        return (
+            <select onChange={this.moveTask}>
+                {Object.values(this.props.projects).map((project, i) => (
+                    <option key={`project-${i}`}
+                        value={JSON.stringify({ projectId: project._id, task })}>
+                        {project.title}
+                    </option>
+                ))}
+            </select>
+        );
+    }
+
     render() {
         if (this.props.projectId === 'inbox' && this.props.inboxTasks) {
             return (
@@ -58,6 +76,7 @@ class TasksIndex extends React.Component {
                                 <li key={`task-${i}`}>
                                     <p>{task.title}</p>
                                     <p>{task.description}</p>
+                                    {this.projectSelection(task)}
                                 </li>
                             );
                         } else { return null; }

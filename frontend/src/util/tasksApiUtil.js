@@ -15,3 +15,7 @@ export const createTask = task => (
 export const getUsersTasks = userId => (
     axios.get(`/api/tasks/owner/${userId}`)
 );
+
+export const moveTask = blob => (
+    axios.patch('/api/tasks/move', blob)
+);

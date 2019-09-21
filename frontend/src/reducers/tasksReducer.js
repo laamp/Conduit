@@ -3,7 +3,8 @@ import {
     RECEIVE_INBOX_TASKS,
     RECEIVE_NEW_TASK,
     CLEAR_TASKS,
-    RECEIVE_ALL_TASKS
+    RECEIVE_ALL_TASKS,
+    RECEIVE_CHANGED_TASK
 } from '../actions/tasksActions';
 
 const initialState = {
@@ -41,6 +42,21 @@ export default function (state = initialState, action) {
             // otherwise it must be an inbox task
             let newInboxTasks = Object.assign({}, state.inboxTasks, action.task.data);
             return { tasks: state.tasks, inboxTasks: newInboxTasks };
+        case RECEIVE_CHANGED_TASK:
+            // delete old version of task from state
+            let targetId = action.task.data.id;
+            let oldTasks = Object.assign({}, state.tasks);
+            let oldInboxTasks = Object.assign({}, state.inboxTasks);
+            delete oldTasks[targetId];
+            delete oldInboxTasks[targetId];
+
+            if (Object.values(action.task.data)[0].project) {
+                let newTasks = Object.assign({}, oldTasks, action.task.data);
+                return { tasks: newTasks, inboxTasks: oldInboxTasks };
+            } else {
+                let newInboxTasks = Object.assign({}, oldInboxTasks, action.task.data);
+                return { tasks: oldTasks, inboxTasks: newInboxTasks };
+            }
         case CLEAR_TASKS:
             return initialState;
         default:

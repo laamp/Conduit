@@ -45,7 +45,11 @@ class TaskForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form
+                onFocus={() => this.props.history.push(`/project/${this.props.projectId}/tasks/new`)}
+                onBlur={() => this.props.history.push(`/project/${this.props.projectId}`)}
+                onSubmit={this.handleSubmit}
+            >
                 <input type="text"
                     value={this.state.title}
                     onChange={this.update('title')}

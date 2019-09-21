@@ -113,4 +113,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
 );
 
+router.patch('/move', (req, res) => {
+    console.log(req.body.projectId);
+});
+
 module.exports = router;
