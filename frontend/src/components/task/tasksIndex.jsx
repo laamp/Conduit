@@ -34,21 +34,34 @@ class TasksIndex extends React.Component {
         }
     }
 
-    moveTask(e) {
-        this.props.moveTask(JSON.parse(e.target.value));
+    moveTask(task) {
+        // send the task and new project id here
+        return e => {
+            // change the project id of the task
+            let movedTask = Object.assign({}, task);
+            movedTask.project = e.target.value;
+
+            // send the updated task to the action to send it to the backend
+            this.props.updateTask(movedTask);
+        };
     }
 
     projectSelection(task) {
         if (!this.props.projects) return null;
 
         return (
-            <select onChange={this.moveTask}>
-                {Object.values(this.props.projects).map((project, i) => (
-                    <option key={`project-${i}`}
-                        value={JSON.stringify({ projectId: project._id, task })}>
-                        {project.title}
-                    </option>
-                ))}
+            <select defaultValue="" onChange={this.moveTask(task)}>
+                <option value="" disabled>Move to different project</option>
+                {Object.values(this.props.projects).map((project, i) => {
+                    if (task.project !== project._id) {
+                        return (
+                            <option key={`project-${i}`}
+                                value={project._id}>
+                                {project.title}
+                            </option>
+                        );
+                    } else { return null; }
+                })}
             </select>
         );
     }

@@ -75,8 +75,8 @@ export const fetchAllTasks = userId => dispatch => (
         .catch(errors => dispatch(receiveTaskErrors(errors)))
 );
 
-export const moveTask = blob => dispatch => (
-    APIUtil.moveTask(blob)
+export const updateTask = task => dispatch => (
+    APIUtil.updateTask(task)
         .then(task => dispatch(receiveChangedTask(task)))
         .catch(errors => dispatch(receiveTaskErrors(errors)))
 );

@@ -3,7 +3,7 @@ import TasksIndex from './tasksIndex';
 import {
     fetchProjectTasks,
     fetchInboxTasks,
-    moveTask
+    updateTask
 } from '../../actions/tasksActions';
 
 const mapStateToProps = ({ entities, session }) => ({
@@ -17,7 +17,7 @@ const mapStateToProps = ({ entities, session }) => ({
 const mapDispatchToProps = dispatch => ({
     fetchProjectTasks: projectId => dispatch(fetchProjectTasks(projectId)),
     fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId)),
-    moveTask: blob => dispatch(moveTask(blob))
+    updateTask: task => dispatch(updateTask(task))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksIndex);
