@@ -18,6 +18,5 @@ export const getUsersTasks = userId => (
 
 export const updateTask = task => {
     let taskId = task._id;
-
     return axios.patch(`/api/tasks/${taskId}`, task);
 };

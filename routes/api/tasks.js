@@ -74,30 +74,35 @@ router.patch('/:taskId', (req, res) => {
     Task.findById(req.params.taskId)
         .then(task => {
             // find the task in the old project's array and remove it
-            Project.findById(task.project)
-                .then(project => {
-                    project.tasks = project.tasks.filter(id => !id.equals(task._id));
-                    project.save();
-                }).catch(err => console.log(err));
+            if (task.project) {
+                Project.findById(task.project)
+                    .then(project => {
+                        project.tasks = project.tasks.filter(id => !id.equals(task._id));
+                        project.save();
+                    }).catch(err => console.log(err));
+            }
 
             // update and save the task with the new data
             task.completed = req.body.completed;
             task.dueDate = req.body.dueDate;
             task.assignee = req.body.assignee;
-            task.project = req.body.project;
+            if (req.body.project === 'inbox') task.project = null;
+            else task.project = req.body.project;
             task.title = req.body.title;
             task.description = req.body.description;
             task.owner = req.body.owner;
 
             task.save().then(updatedTask => {
                 // add this task to the new project's tasks
-                Project.findById(updatedTask.project)
-                    .then(newProject => {
-                        if (!newProject.tasks.includes(updatedTask._id)) {
-                            newProject.tasks.push(updatedTask._id);
-                        }
-                        newProject.save();
-                    }).catch(err => console.log(err));
+                if (updatedTask.project) {
+                    Project.findById(updatedTask.project)
+                        .then(newProject => {
+                            if (!newProject.tasks.includes(updatedTask._id)) {
+                                newProject.tasks.push(updatedTask._id);
+                            }
+                            newProject.save();
+                        }).catch(err => console.log(err));
+                }
                 res.json({ [updatedTask._id]: updatedTask });
             });
         }).catch(err => console.log(err));

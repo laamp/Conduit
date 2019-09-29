@@ -44,7 +44,6 @@ export default function (state = initialState, action) {
             return { tasks: state.tasks, inboxTasks: newInboxTasks };
         case RECEIVE_CHANGED_TASK:
             // delete old version of task from state
-            // console.log(action);
             let targetId = action.task.data._id;
             let oldTasks = Object.assign({}, state.tasks);
             let oldInboxTasks = Object.assign({}, state.inboxTasks);

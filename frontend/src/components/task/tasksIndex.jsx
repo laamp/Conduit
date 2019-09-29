@@ -26,8 +26,7 @@ class TasksIndex extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.currentProjectId !== prevProps.currentProjectId &&
-            this.props.currentProjectId &&
-            this.props.currentProjectId !== 'inbox') {
+            this.props.currentProjectId) {
 
             this.props.fetchProjectTasks(this.props.currentProjectId);
             this.props.fetchInboxTasks(this.props.currentUserId);
@@ -52,6 +51,7 @@ class TasksIndex extends React.Component {
         return (
             <select defaultValue="" onChange={this.moveTask(task)}>
                 <option value="" disabled>Move to different project</option>
+                <option value="inbox">Move to inbox</option>
                 {Object.values(this.props.projects).map((project, i) => {
                     if (task.project !== project._id) {
                         return (
@@ -74,6 +74,7 @@ class TasksIndex extends React.Component {
                         <li key={`task-${i}`}>
                             <p>{task[1].title}</p>
                             <p>{task[1].description}</p>
+                            {this.projectSelection(task[1])}
                         </li>
                     ))}
                 </ul>
