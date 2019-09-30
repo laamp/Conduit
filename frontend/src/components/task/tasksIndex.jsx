@@ -5,6 +5,11 @@ class TasksIndex extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            tasks: {},
+            inboxTasks: {}
+        };
+
         this.moveTask = this.moveTask.bind(this);
     }
 
@@ -22,6 +27,11 @@ class TasksIndex extends React.Component {
         if (lsProjId && lsProjId !== 'inbox') {
             this.props.fetchProjectTasks(lsProjId);
         }
+
+        this.setState({
+            tasks: this.props.tasks,
+            inboxTasks: this.props.inboxTasks
+        });
     }
 
     componentDidUpdate(prevProps) {
@@ -30,6 +40,14 @@ class TasksIndex extends React.Component {
 
             this.props.fetchProjectTasks(this.props.currentProjectId);
             this.props.fetchInboxTasks(this.props.currentUserId);
+        }
+
+        if (this.props.tasks !== prevProps.tasks) {
+            this.setState({ tasks: this.props.tasks });
+        }
+
+        if (this.props.inboxTasks !== prevProps.inboxTasks) {
+            this.setState({ inboxTasks: this.props.inboxTasks });
         }
     }
 
@@ -41,7 +59,13 @@ class TasksIndex extends React.Component {
             movedTask.project = e.target.value;
 
             // send the updated task to the action to send it to the backend
-            this.props.updateTask(movedTask);
+            this.props.updateTask(movedTask).then(() => {
+                if (this.props.currentProjectId === 'inbox') {
+                    this.props.fetchInboxTasks(this.props.currentUserId);
+                } else {
+                    this.props.fetchProjectTasks(this.props.currentProjectId);
+                }
+            });
         };
     }
 
@@ -67,10 +91,10 @@ class TasksIndex extends React.Component {
     }
 
     render() {
-        if (this.props.projectId === 'inbox' && this.props.inboxTasks) {
+        if (this.props.projectId === 'inbox') {
             return (
                 <ul>
-                    {Object.entries(this.props.inboxTasks).map((task, i) => (
+                    {Object.entries(this.state.inboxTasks).map((task, i) => (
                         <li key={`task-${i}`}>
                             <p>{task[1].title}</p>
                             <p>{task[1].description}</p>
@@ -81,10 +105,10 @@ class TasksIndex extends React.Component {
             );
         }
 
-        if (this.props.tasks) {
+        if (this.state.tasks) {
             return (
                 <ul>
-                    {Object.values(this.props.tasks).map((task, i) => {
+                    {Object.values(this.state.tasks).map((task, i) => {
                         if (task.project === this.props.projectId) {
                             return (
                                 <li key={`task-${i}`}>
