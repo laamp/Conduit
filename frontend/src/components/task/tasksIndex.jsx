@@ -7,7 +7,8 @@ class TasksIndex extends React.Component {
 
         this.state = {
             tasks: {},
-            inboxTasks: {}
+            inboxTasks: {},
+            trigger: false
         };
 
         this.moveTask = this.moveTask.bind(this);
@@ -60,11 +61,10 @@ class TasksIndex extends React.Component {
 
             // send the updated task to the action to send it to the backend
             this.props.updateTask(movedTask).then(() => {
-                if (this.props.currentProjectId === 'inbox') {
-                    this.props.fetchInboxTasks(this.props.currentUserId);
-                } else {
-                    this.props.fetchProjectTasks(this.props.currentProjectId);
-                }
+                this.props.fetchInboxTasks(this.props.currentUserId);
+                this.props.fetchProjectTasks(this.props.currentProjectId).then(() => {
+                    this.setState({ trigger: !this.state.trigger });
+                });
             });
         };
     }

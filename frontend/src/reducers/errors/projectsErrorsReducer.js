@@ -1,7 +1,7 @@
 import {
     RECEIVE_PROJECT_ERRORS,
     CLEAR_PROJECT_ERRORS
-} from '../actions/projectsActions';
+} from '../../actions/projectsActions';
 
 const _nullErrors = [];
 

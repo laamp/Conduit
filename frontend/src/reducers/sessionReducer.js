@@ -18,7 +18,7 @@ export default function (state = initialState, action) {
                 currentProject: 'inbox',
                 user: action.currentUser,
                 isAuthenticated: !!action.currentUser,
-                isSignedIn: true
+                isSignedIn: !!action.currentUser
             };
         case RECEIVE_USER_LOGOUT:
             return initialState;

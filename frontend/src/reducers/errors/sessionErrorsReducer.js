@@ -2,7 +2,7 @@ import {
     RECEIVE_SESSION_ERRORS,
     RECEIVE_USER_SIGN_IN,
     CLEAR_SESSION_ERRORS
-} from '../actions/sessionActions';
+} from '../../actions/sessionActions';
 
 const _nullErrors = [];
 
