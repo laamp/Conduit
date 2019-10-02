@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 import TasksIndex from './tasksIndex';
-import {
-    // fetchProjectTasks,
-    // fetchInboxTasks,
-    updateTask
-} from '../../actions/tasksActions';
+import { updateTask } from '../../actions/tasksActions';
 
 const mapStateToProps = ({ entities, session }) => ({
     projects: entities.projects,
