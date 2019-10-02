@@ -4,8 +4,7 @@ import ProjectShow from './projectShow';
 
 const mapStateToProps = ({ entities, session }) => ({
     projects: entities.projects,
-    tasks: entities.tasks,
-    currentProject: session.currentProject
+    currentProjectId: session.currentProject
 });
 
 const mapDispatchToProps = dispatch => ({

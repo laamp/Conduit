@@ -5,51 +5,7 @@ class TasksIndex extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            // tasks: {},
-            // inboxTasks: {},
-            // trigger: false
-        };
-
         this.moveTask = this.moveTask.bind(this);
-    }
-
-    componentDidMount() {
-        // if (this.props.currentProjectId &&
-        //     this.props.currentProjectId !== 'inbox') {
-        //     this.props.fetchProjectTasks(this.props.currentProjectId);
-        // }
-
-        // if (this.props.currentUserId) {
-        //     this.props.fetchInboxTasks(this.props.currentUserId);
-        // }
-
-        // let lsProjId = localStorage.getItem('currentProject');
-        // if (lsProjId && lsProjId !== 'inbox') {
-        //     this.props.fetchProjectTasks(lsProjId);
-        // }
-
-        // this.setState({
-        //     tasks: this.props.tasks,
-        //     inboxTasks: this.props.inboxTasks
-        // });
-    }
-
-    componentDidUpdate(prevProps) {
-        // if (this.props.currentProjectId !== prevProps.currentProjectId &&
-        //     this.props.currentProjectId) {
-
-        //     this.props.fetchProjectTasks(this.props.currentProjectId);
-        //     this.props.fetchInboxTasks(this.props.currentUserId);
-        // }
-
-        // if (this.props.tasks !== prevProps.tasks) {
-        //     this.setState({ tasks: this.props.tasks });
-        // }
-
-        // if (this.props.inboxTasks !== prevProps.inboxTasks) {
-        //     this.setState({ inboxTasks: this.props.inboxTasks });
-        // }
     }
 
     moveTask(task) {
@@ -63,12 +19,6 @@ class TasksIndex extends React.Component {
             this.props.updateTask(movedTask);
             let selectors = document.querySelectorAll('.projectSelector');
             selectors.forEach(s => s.value = '');
-            // .then(() => {
-            //     this.props.fetchInboxTasks(this.props.currentUserId);
-            //     this.props.fetchProjectTasks(this.props.currentProjectId).then(() => {
-            //         this.setState({ trigger: !this.state.trigger });
-            //     });
-            // });
         };
     }
 

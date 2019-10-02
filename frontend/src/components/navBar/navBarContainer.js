@@ -1,23 +1,28 @@
 import { connect } from 'react-redux';
-import { fetchUsersProjects, clearProjects } from '../../actions/projectsActions';
-import { fetchInboxTasks, clearTasks, fetchAllTasks } from '../../actions/tasksActions';
 import { logout, setCurrentProject } from '../../actions/sessionActions';
+import {
+    fetchUsersProjects,
+    clearProjects
+} from '../../actions/projectsActions';
+import {
+    clearTasks,
+    fetchAllTasks
+} from '../../actions/tasksActions';
 
 import NavBar from './navBar';
 
 const mapStateToProps = state => ({
+    projects: state.entities.projects,
+    tasks: state.entities.tasks,
     loggedIn: state.session.isAuthenticated,
     currentUser: state.session.user,
-    currentProject: state.session.currentProject,
-    projects: state.entities.projects,
-    tasks: state.entities.tasks
+    currentProjectId: state.session.currentProject
 });
 
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     fetchUsersProjects: userId => dispatch(fetchUsersProjects(userId)),
     setCurrentProject: project => dispatch(setCurrentProject(project)),
-    fetchInboxTasks: userId => dispatch(fetchInboxTasks(userId)),
     clearProjects: () => dispatch(clearProjects()),
     clearTasks: () => dispatch(clearTasks()),
     fetchAllTasks: userId => dispatch(fetchAllTasks(userId))

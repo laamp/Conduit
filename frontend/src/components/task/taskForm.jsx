@@ -30,12 +30,7 @@ class TaskForm extends React.Component {
             project: this.props.currentProjectId
         };
 
-        this.props.createTask(task)
-        // .then(res => {
-        //     if (this.props.projectId !== 'inbox') {
-        //         this.props.fetchProject(this.props.projectId);
-        //     }
-        // });
+        this.props.createTask(task);
 
         this.setState({
             title: '',
