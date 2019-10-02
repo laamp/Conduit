@@ -4,48 +4,50 @@ import TasksIndexContainer from '../task/tasksIndexContainer';
 import TaskFormContainer from '../task/taskFormContainer';
 
 class ProjectShow extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    // super(props);
 
-        this.state = {
-            currentProjectId: localStorage.getItem('currentProject'),
-        };
-    }
+    // this.state = {
+    //     currentProjectId: 'inbox'
+    // };
+    // }
 
     componentDidMount() {
-        if (!this.state.currentProjectId) {
-            this.setState({
-                currentProjectId: 'inbox'
-            });
-        }
+        // if (!this.state.currentProjectId) {
+        //     this.setState({
+        //         currentProjectId: 'inbox'
+        //     });
+        // }
 
-        if (localStorage.getItem('currentProject')) {
-            this.setState({
-                currentProjectId: localStorage.getItem('currentProject')
-            });
+        let localStorageProjId = localStorage.getItem('currentProject');
+        if (localStorageProjId) {
+            this.props.setCurrentProject(localStorageProjId);
+        } else {
+            this.props.setCurrentProject('inbox');
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.state.currentProjectId !== localStorage.getItem('currentProject') &&
-            localStorage.getItem('currentProject')) {
-            this.setState({
-                currentProjectId: localStorage.getItem('currentProject')
-            });
-        }
+    componentDidUpdate() {
+        // if (this.state.currentProjectId !== localStorage.getItem('currentProject') &&
+        //     localStorage.getItem('currentProject')) {
+        //     this.setState({
+        //         currentProjectId: localStorage.getItem('currentProject')
+        //     });
+        // }
     }
 
     projectRender() {
-        if (this.props.projects[this.state.currentProjectId] ||
-            this.state.currentProjectId === 'inbox') {
+        if (this.props.projects[this.props.currentProject] ||
+            this.props.currentProject === 'inbox') {
 
             return (<>
-                {this.state.currentProjectId === 'inbox' ? <h1>Inbox</h1> :
-                    <h1>{this.props.projects[this.state.currentProjectId].title}</h1>}
+                {this.props.currentProject === 'inbox' ? <h1>Inbox</h1> :
+                    <h1>{this.props.projects[this.props.currentProject].title}</h1>}
 
-                <TaskFormContainer projectId={this.state.currentProjectId} />
-                <TasksIndexContainer projectId={this.state.currentProjectId} />
+                <TaskFormContainer />
+                <TasksIndexContainer />
             </>);
+            // remember these components were receiving current project id
         }
     }
 

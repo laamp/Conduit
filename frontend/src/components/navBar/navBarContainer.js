@@ -10,8 +10,7 @@ const mapStateToProps = state => ({
     currentUser: state.session.user,
     currentProject: state.session.currentProject,
     projects: state.entities.projects,
-    inboxTasks: state.entities.tasks.inboxTasks,
-    tasks: state.entities.tasks.tasks
+    tasks: state.entities.tasks
 });
 
 const mapDispatchToProps = dispatch => ({

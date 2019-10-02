@@ -4,7 +4,8 @@ import { createTask } from '../../actions/tasksActions';
 import { fetchProject, fetchUsersProjects } from '../../actions/projectsActions';
 
 const mapStateToProps = state => ({
-    currentUserId: state.session.user.id
+    currentUserId: state.session.user.id,
+    currentProjectId: state.session.currentProject
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -6,50 +6,50 @@ class TasksIndex extends React.Component {
         super(props);
 
         this.state = {
-            tasks: {},
-            inboxTasks: {},
-            trigger: false
+            // tasks: {},
+            // inboxTasks: {},
+            // trigger: false
         };
 
         this.moveTask = this.moveTask.bind(this);
     }
 
     componentDidMount() {
-        if (this.props.currentProjectId &&
-            this.props.currentProjectId !== 'inbox') {
-            this.props.fetchProjectTasks(this.props.currentProjectId);
-        }
+        // if (this.props.currentProjectId &&
+        //     this.props.currentProjectId !== 'inbox') {
+        //     this.props.fetchProjectTasks(this.props.currentProjectId);
+        // }
 
-        if (this.props.currentUserId) {
-            this.props.fetchInboxTasks(this.props.currentUserId);
-        }
+        // if (this.props.currentUserId) {
+        //     this.props.fetchInboxTasks(this.props.currentUserId);
+        // }
 
-        let lsProjId = localStorage.getItem('currentProject');
-        if (lsProjId && lsProjId !== 'inbox') {
-            this.props.fetchProjectTasks(lsProjId);
-        }
+        // let lsProjId = localStorage.getItem('currentProject');
+        // if (lsProjId && lsProjId !== 'inbox') {
+        //     this.props.fetchProjectTasks(lsProjId);
+        // }
 
-        this.setState({
-            tasks: this.props.tasks,
-            inboxTasks: this.props.inboxTasks
-        });
+        // this.setState({
+        //     tasks: this.props.tasks,
+        //     inboxTasks: this.props.inboxTasks
+        // });
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.currentProjectId !== prevProps.currentProjectId &&
-            this.props.currentProjectId) {
+        // if (this.props.currentProjectId !== prevProps.currentProjectId &&
+        //     this.props.currentProjectId) {
 
-            this.props.fetchProjectTasks(this.props.currentProjectId);
-            this.props.fetchInboxTasks(this.props.currentUserId);
-        }
+        //     this.props.fetchProjectTasks(this.props.currentProjectId);
+        //     this.props.fetchInboxTasks(this.props.currentUserId);
+        // }
 
-        if (this.props.tasks !== prevProps.tasks) {
-            this.setState({ tasks: this.props.tasks });
-        }
+        // if (this.props.tasks !== prevProps.tasks) {
+        //     this.setState({ tasks: this.props.tasks });
+        // }
 
-        if (this.props.inboxTasks !== prevProps.inboxTasks) {
-            this.setState({ inboxTasks: this.props.inboxTasks });
-        }
+        // if (this.props.inboxTasks !== prevProps.inboxTasks) {
+        //     this.setState({ inboxTasks: this.props.inboxTasks });
+        // }
     }
 
     moveTask(task) {
@@ -60,12 +60,15 @@ class TasksIndex extends React.Component {
             movedTask.project = e.target.value;
 
             // send the updated task to the action to send it to the backend
-            this.props.updateTask(movedTask).then(() => {
-                this.props.fetchInboxTasks(this.props.currentUserId);
-                this.props.fetchProjectTasks(this.props.currentProjectId).then(() => {
-                    this.setState({ trigger: !this.state.trigger });
-                });
-            });
+            this.props.updateTask(movedTask);
+            let selectors = document.querySelectorAll('.projectSelector');
+            selectors.forEach(s => s.value = '');
+            // .then(() => {
+            //     this.props.fetchInboxTasks(this.props.currentUserId);
+            //     this.props.fetchProjectTasks(this.props.currentProjectId).then(() => {
+            //         this.setState({ trigger: !this.state.trigger });
+            //     });
+            // });
         };
     }
 
@@ -73,7 +76,7 @@ class TasksIndex extends React.Component {
         if (!this.props.projects) return null;
 
         return (
-            <select defaultValue="" onChange={this.moveTask(task)}>
+            <select className='projectSelector' defaultValue="" onChange={this.moveTask(task)}>
                 <option value="" disabled>Move to different project</option>
                 <option value="inbox">Move to inbox</option>
                 {Object.values(this.props.projects).map((project, i) => {
@@ -91,34 +94,35 @@ class TasksIndex extends React.Component {
     }
 
     render() {
-        if (this.props.projectId === 'inbox') {
+        let inboxTasks = Object.values(this.props.tasks).filter(task => !task.project);
+        if (this.props.currentProjectId === 'inbox') {
             return (
                 <ul>
-                    {Object.entries(this.state.inboxTasks).map((task, i) => (
+                    {inboxTasks.map((task, i) => (
                         <li key={`task-${i}`}>
-                            <p>{task[1].title}</p>
-                            <p>{task[1].description}</p>
-                            {this.projectSelection(task[1])}
+                            <p>{task.title}</p>
+                            <p>{task.description}</p>
+                            {this.projectSelection(task)}
                         </li>
                     ))}
                 </ul>
             );
         }
 
-        if (this.state.tasks) {
+        if (this.props.tasks && this.props.currentProjectId) {
+            let currProjectTasks = Object.values(this.props.tasks).filter(task => {
+                return task.project === this.props.currentProjectId;
+            });
+
             return (
                 <ul>
-                    {Object.values(this.state.tasks).map((task, i) => {
-                        if (task.project === this.props.projectId) {
-                            return (
-                                <li key={`task-${i}`}>
-                                    <p>{task.title}</p>
-                                    <p>{task.description}</p>
-                                    {this.projectSelection(task)}
-                                </li>
-                            );
-                        } else { return null; }
-                    })}
+                    {currProjectTasks.map((task, i) => (
+                        <li key={`task-${i}`}>
+                            <p>{task.title}</p>
+                            <p>{task.description}</p>
+                            {this.projectSelection(task)}
+                        </li>
+                    ))}
                 </ul>
             );
         }

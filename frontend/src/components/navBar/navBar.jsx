@@ -7,10 +7,10 @@ class NavBar extends React.Component {
         super(props);
 
         this.state = {
-            bFetchedProjects: false,
-            bFetchedInboxTasks: false,
-            inboxCount: 0,
-            lastUser: null
+            // bFetchedProjects: false,
+            // bFetchedInboxTasks: false,
+            // inboxCount: 0,
+            // lastUser: null
         };
 
         this.logoutUser = this.logoutUser.bind(this);
@@ -21,27 +21,28 @@ class NavBar extends React.Component {
         // actions to dispatch on user log in
         if (this.props.loggedIn && this.props.currentUser) {
             // check if the same user is logged in
-            if (this.state.lastUser !== this.props.currentUser.id) {
-                this.setState({
-                    bFetchedProjects: false,
-                    bFetchedInboxTasks: false,
-                    lastUser: this.props.currentUser.id
-                });
-            }
+            // if (this.state.lastUser !== this.props.currentUser.id) {
+            //     this.setState({
+            //         bFetchedProjects: false,
+            //         bFetchedInboxTasks: false,
+            //         lastUser: this.props.currentUser.id
+            //     });
+            // }
 
-            if (!this.state.bFetchedProjects) {
-                this.setState({ bFetchedProjects: true });
-                this.props.fetchUsersProjects(this.props.currentUser.id);
-            }
+            // if (!this.state.bFetchedProjects) {
+            //     this.setState({ bFetchedProjects: true });
+            //     this.props.fetchUsersProjects(this.props.currentUser.id);
+            // }
 
-            if (!this.state.bFetchedInboxTasks) {
-                this.setState({ bFetchedInboxTasks: true });
-                this.props.fetchInboxTasks(this.props.currentUser.id)
-                    .then(res => {
-                        this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
-                    });
-            }
+            // if (!this.state.bFetchedInboxTasks) {
+            //     this.setState({ bFetchedInboxTasks: true });
+            //     this.props.fetchInboxTasks(this.props.currentUser.id)
+            //         .then(res => {
+            //             this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
+            //         });
+            // }
 
+            this.props.fetchUsersProjects(this.props.currentUser.id);
             this.props.fetchAllTasks(this.props.currentUser.id);
         }
     }
@@ -49,36 +50,43 @@ class NavBar extends React.Component {
     componentDidUpdate(prevProps) {
         if (!prevProps.currentUser && this.props.currentUser) {
             this.props.fetchAllTasks(this.props.currentUser.id);
+            this.props.fetchUsersProjects(this.props.currentUser.id);
         }
 
-        const newTaskCount = Object.keys(this.props.inboxTasks).length;
-        if (newTaskCount !== Object.keys(prevProps.inboxTasks).length) {
-            this.setState({ inboxCount: newTaskCount });
+        if (prevProps.currentProject !== this.props.currentProject) {
         }
+
+        // const newTaskCount = Object.keys(this.props.inboxTasks).length;
+        // if (newTaskCount !== Object.keys(prevProps.inboxTasks).length) {
+        //     this.setState({ inboxCount: newTaskCount });
+        // }
 
         // actions to dispatch on user log in
         if (this.props.loggedIn && this.props.currentUser) {
             // check if the same user is logged in
-            if (this.state.lastUser !== this.props.currentUser.id) {
-                this.setState({
-                    bFetchedInboxTasks: false,
-                    bFetchedProjects: false,
-                    lastUser: this.props.currentUser.id
-                });
-            }
+            // if (this.state.lastUser !== this.props.currentUser.id) {
+            //     this.setState({
+            //         bFetchedInboxTasks: false,
+            //         bFetchedProjects: false,
+            //         lastUser: this.props.currentUser.id
+            //     });
+            // }
 
-            if (!this.state.bFetchedProjects) {
-                this.setState({ bFetchedProjects: true });
-                this.props.fetchUsersProjects(this.props.currentUser.id);
-            }
+            // if (!this.state.bFetchedProjects) {
+            //     this.setState({ bFetchedProjects: true });
+            //     this.props.fetchUsersProjects(this.props.currentUser.id);
+            // }
 
-            if (!this.state.bFetchedInboxTasks) {
-                this.setState({ bFetchedInboxTasks: true });
-                this.props.fetchInboxTasks(this.props.currentUser.id)
-                    .then(res => {
-                        this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
-                    });
-            }
+            // if (!this.state.bFetchedInboxTasks) {
+            //     this.setState({ bFetchedInboxTasks: true });
+            //     this.props.fetchInboxTasks(this.props.currentUser.id)
+            //         .then(res => {
+            //             this.setState({ inboxCount: Object.entries(this.props.inboxTasks).length });
+            //         });
+            // }
+
+            // this.props.fetchUsersProjects(this.props.currentUser.id);
+            // this.props.fetchAllTasks(this.props.currentUser.id);
         }
     }
 
@@ -89,12 +97,12 @@ class NavBar extends React.Component {
 
     logoutUser(e) {
         e.preventDefault();
-        this.setState({
-            bFetchedProjects: false,
-            bFetchedInboxTasks: false,
-            inboxCount: 0,
-            lastUser: null
-        });
+        // this.setState({
+        //     bFetchedProjects: false,
+        //     bFetchedInboxTasks: false,
+        //     inboxCount: 0,
+        //     lastUser: null
+        // });
         this.props.clearProjects();
         this.props.clearTasks();
         this.props.logout();
@@ -107,10 +115,10 @@ class NavBar extends React.Component {
                 <li key={`project-inbox`}
                     onClick={() => this.navToProject('inbox')}>
                     <p>Inbox</p>
-                    <p>{this.state.inboxCount}</p>
+                    <p>{Object.values(this.props.tasks).filter(task => !task.project).length}</p>
                 </li>
 
-                {Object.entries(this.props.projects).length > 0 && this.props.projects.constructor === Object ?
+                {Object.keys(this.props.projects).length > 0 && this.props.projects.constructor === Object ?
                     Object.keys(this.props.projects).map((projectId, i) => {
                         let tasks = Object.values(this.props.tasks).filter(task => task.project === projectId);
 

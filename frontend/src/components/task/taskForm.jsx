@@ -27,14 +27,15 @@ class TaskForm extends React.Component {
             title: this.state.title,
             description: this.state.description,
             dueDate: this.state.dueDate,
-            project: this.props.projectId
+            project: this.props.currentProjectId
         };
 
-        this.props.createTask(task).then(res => {
-            if (this.props.projectId !== 'inbox') {
-                this.props.fetchProject(this.props.projectId);
-            }
-        });
+        this.props.createTask(task)
+        // .then(res => {
+        //     if (this.props.projectId !== 'inbox') {
+        //         this.props.fetchProject(this.props.projectId);
+        //     }
+        // });
 
         this.setState({
             title: '',
@@ -46,8 +47,8 @@ class TaskForm extends React.Component {
     render() {
         return (
             <form
-                onFocus={() => this.props.history.push(`/project/${this.props.projectId}/tasks/new`)}
-                onBlur={() => this.props.history.push(`/project/${this.props.projectId}`)}
+                onFocus={() => this.props.history.push(`/project/${this.props.currentProjectId}/tasks/new`)}
+                onBlur={() => this.props.history.push(`/project/${this.props.currentProjectId}`)}
                 onSubmit={this.handleSubmit}
             >
                 <input type="text"
