@@ -78,7 +78,11 @@ class TasksIndex extends React.Component {
         return (
             <select className='projectSelector' defaultValue="" onChange={this.moveTask(task)}>
                 <option value="" disabled>Move to different project</option>
-                <option value="inbox">Move to inbox</option>
+
+                {this.props.currentProjectId !== 'inbox' ?
+                    <option value="inbox">Move to inbox</option> :
+                    null}
+
                 {Object.values(this.props.projects).map((project, i) => {
                     if (task.project !== project._id) {
                         return (
