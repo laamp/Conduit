@@ -15,3 +15,7 @@ export const getUserProjects = userId => {
 export const createProject = project => {
     return axios.post('/api/projects', project);
 };
+
+export const deleteProject = projectId => (
+    axios.delete(`/api/projects/${projectId}`)
+);

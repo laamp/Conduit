@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { logout, setCurrentProject } from '../../actions/sessionActions';
 import {
     fetchUsersProjects,
-    clearProjects
+    clearProjects,
+    deleteProject
 } from '../../actions/projectsActions';
 import {
     clearTasks,
@@ -25,7 +26,8 @@ const mapDispatchToProps = dispatch => ({
     setCurrentProject: project => dispatch(setCurrentProject(project)),
     clearProjects: () => dispatch(clearProjects()),
     clearTasks: () => dispatch(clearTasks()),
-    fetchAllTasks: userId => dispatch(fetchAllTasks(userId))
+    fetchAllTasks: userId => dispatch(fetchAllTasks(userId)),
+    deleteProject: projectId => dispatch(deleteProject(projectId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

@@ -39,6 +39,10 @@ class NavBar extends React.Component {
         this.props.history.push('/');
     }
 
+    deleteProject(projectId) {
+        this.props.deleteProject(projectId);
+    }
+
     renderProjects() {
         return (
             <ul>
@@ -53,12 +57,14 @@ class NavBar extends React.Component {
                         let tasks = Object.values(this.props.tasks).filter(task => task.project === projectId);
 
                         return (
-                            <li key={`project-${i}`}
-                                onClick={() => this.navToProject(projectId)}>
-                                <ProjectTile
-                                    project={this.props.projects[projectId]}
-                                    numOfTasks={tasks.length}
-                                />
+                            <li key={`project-${i}`}>
+                                <div onClick={() => this.navToProject(projectId)}>
+                                    <ProjectTile
+                                        project={this.props.projects[projectId]}
+                                        numOfTasks={tasks.length}
+                                    />
+                                </div>
+                                <button onClick={() => this.deleteProject(projectId)}>Delete</button>
                             </li>
                         );
                     }) : null}

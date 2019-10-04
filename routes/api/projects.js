@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../../models/User');
 const Project = require('../../models/Project');
+const Task = require('../../models/Task');
 const validateProjectInput = require('../../validation/project');
 
 // test route
@@ -65,5 +66,20 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             .catch(err => console.log(err));
     }
 );
+
+// delete a project and all of its associated tasks
+router.delete('/:projectId', (req, res) => {
+    Project.findById(req.params.projectId)
+        .then(project => {
+            project.tasks.forEach(taskId => {
+                Task.findByIdAndDelete(taskId, () => 'task deleted')
+                    .catch(err => console.log(err));
+            });
+        }).then(() => {
+            Project.findByIdAndDelete(req.params.projectId, () => {
+                res.send(req.params.projectId);
+            }).catch(err => console.log(err));
+        }).catch(err => console.log(err));
+});
 
 module.exports = router;

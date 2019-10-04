@@ -1,7 +1,8 @@
 import {
     RECEIVE_USERS_PROJECTS,
     RECEIVE_PROJECT,
-    CLEAR_PROJECTS
+    CLEAR_PROJECTS,
+    RECEIVE_DELETED_PROJECT
 } from '../../actions/projectsActions';
 
 export default function (state = {}, action) {
@@ -11,6 +12,10 @@ export default function (state = {}, action) {
             return action.projects.data;
         case RECEIVE_PROJECT:
             return Object.assign({}, state, action.project.data);
+        case RECEIVE_DELETED_PROJECT:
+            let newState = Object.assign({}, state);
+            delete newState[action.projectId.data];
+            return newState;
         case CLEAR_PROJECTS:
             return {};
         default:
