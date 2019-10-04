@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TasksIndex from './tasksIndex';
-import { updateTask } from '../../actions/tasksActions';
+import { updateTask, deleteTask } from '../../actions/tasksActions';
 
 const mapStateToProps = ({ entities, session }) => ({
     projects: entities.projects,
@@ -9,7 +9,8 @@ const mapStateToProps = ({ entities, session }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateTask: task => dispatch(updateTask(task))
+    updateTask: task => dispatch(updateTask(task)),
+    deleteTask: taskId => dispatch(deleteTask(taskId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksIndex);

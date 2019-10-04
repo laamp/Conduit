@@ -22,6 +22,10 @@ class TasksIndex extends React.Component {
         };
     }
 
+    deleteTask(task) {
+        this.props.deleteTask(task._id);
+    }
+
     projectSelection(task) {
         if (!this.props.projects) return null;
 
@@ -47,38 +51,32 @@ class TasksIndex extends React.Component {
         );
     }
 
+    renderTasks(tasks) {
+        return (
+            <ul>
+                {tasks.map((task, i) => (
+                    <li key={`task-${i}`}>
+                        <p>{task.title}</p>
+                        <p>{task.description}</p>
+                        {this.projectSelection(task)}
+                        <button onClick={() => this.deleteTask(task)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
     render() {
         let inboxTasks = Object.values(this.props.tasks).filter(task => !task.project);
         if (this.props.currentProjectId === 'inbox') {
-            return (
-                <ul>
-                    {inboxTasks.map((task, i) => (
-                        <li key={`task-${i}`}>
-                            <p>{task.title}</p>
-                            <p>{task.description}</p>
-                            {this.projectSelection(task)}
-                        </li>
-                    ))}
-                </ul>
-            );
+            return this.renderTasks(inboxTasks);
         }
 
         if (this.props.tasks && this.props.currentProjectId) {
             let currProjectTasks = Object.values(this.props.tasks).filter(task => {
                 return task.project === this.props.currentProjectId;
             });
-
-            return (
-                <ul>
-                    {currProjectTasks.map((task, i) => (
-                        <li key={`task-${i}`}>
-                            <p>{task.title}</p>
-                            <p>{task.description}</p>
-                            {this.projectSelection(task)}
-                        </li>
-                    ))}
-                </ul>
-            );
+            return this.renderTasks(currProjectTasks);
         }
     }
 }

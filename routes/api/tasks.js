@@ -152,4 +152,11 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
 );
 
+// delete a task
+router.delete('/:taskId', (req, res) => {
+    Task.findByIdAndDelete(req.params.taskId, () => {
+        res.send(req.params.taskId);
+    }).catch(err => console.log(err));
+});
+
 module.exports = router;
