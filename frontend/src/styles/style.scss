@@ -12,18 +12,27 @@ body,
 }
 
 #root {
+    font-family: 'Lato', sans-serif;
     display: flex;
 }
 
 .navbar {
+    padding: 10px;
     width: 300px;
     min-width: 300px;
+    color: white;
     background-color: $debug-blue;
+
+    h1 {
+        font-size: 1.3em;
+        padding: 10px 0;
+        background-color: $debug-blue2;
+    }
 }
 
 .content {
     min-width: 700px;
     flex: 1;
-    background-color: skyblue;
+    background-color: whitesmoke;
     overflow-y: auto;
 }

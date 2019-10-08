@@ -95,9 +95,11 @@ class NavBar extends React.Component {
 
     render() {
         return (
-            <div className='navbar'>
-                <h1>Conduit</h1>
-                {this.getLinks()}
+            <div className="navbar-container">
+                <div className='navbar'>
+                    <h1>Conduit</h1>
+                    {this.getLinks()}
+                </div>
             </div>
         );
     }
