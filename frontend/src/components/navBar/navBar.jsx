@@ -47,7 +47,8 @@ class NavBar extends React.Component {
         return (
             <ul>
                 <li key={`project-inbox`}
-                    onClick={() => this.navToProject('inbox')}>
+                    onClick={() => this.navToProject('inbox')}
+                    className='project-tile'>
                     <p>Inbox</p>
                     <p>{Object.values(this.props.tasks).filter(task => !task.project).length}</p>
                 </li>
@@ -77,7 +78,7 @@ class NavBar extends React.Component {
             return (
                 // add nav bar links here
                 <div>
-                    <p>You are currently logged in</p>
+                    <p className='username'>Welcome, {this.props.currentUser.name}</p>
                     {this.renderProjects()}
                     <button onClick={this.logoutUser}>Logout</button>
                     <button onClick={() => this.props.history.push('/project/new')}>Create Project</button>
@@ -85,7 +86,7 @@ class NavBar extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div className='login-links'>
                     <Link to={'/signup'}>Signup</Link>
                     <Link to={'/login'}>Login</Link>
                 </div>
@@ -95,11 +96,11 @@ class NavBar extends React.Component {
 
     render() {
         return (
-            <div className="navbar-container">
-                <div className='navbar'>
+            <div className='navbar'>
+                <Link to={'/'}>
                     <h1>Conduit</h1>
-                    {this.getLinks()}
-                </div>
+                </Link>
+                {this.getLinks()}
             </div>
         );
     }

@@ -1,5 +1,7 @@
 @import './variables.scss';
 
+// general
+
 * {
     box-sizing: border-box;
 }
@@ -16,19 +18,63 @@ body,
     display: flex;
 }
 
+// nav bar
+
 .navbar {
-    padding: 10px;
     width: 300px;
     min-width: 300px;
     color: white;
     background-color: $debug-blue;
 
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
     h1 {
-        font-size: 1.3em;
-        padding: 10px 0;
+        font-size: 1.4em;
+        padding: 10px;
         background-color: $debug-blue2;
     }
+
+    li {
+        padding: 10px;
+    }
 }
+
+.username {
+    padding: 10px;
+}
+
+.project-tile {
+    display: flex;
+}
+
+.login-links {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    a:first-child {
+        margin-right: 10px;
+    }
+
+    a:active {
+        background-color: rgb(209, 209, 209);
+    }
+
+    a {
+        flex: 1;
+        text-decoration: none;
+        text-align: center;
+        padding: 10px 15px;
+        color: black;
+        background-color: rgb(245, 245, 245);
+        border-radius: 4px;
+    }
+}
+
+// content
 
 .content {
     min-width: 700px;
