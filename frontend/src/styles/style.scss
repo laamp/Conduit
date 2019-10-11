@@ -32,22 +32,23 @@ body,
     }
 
     h1 {
-        font-size: 1.4em;
+        font-size: 1.6em;
         padding: 10px;
         background-color: $debug-blue2;
-    }
-
-    li {
-        padding: 10px;
     }
 }
 
 .username {
+    font-size: 1.3em;
     padding: 10px;
 }
 
 .project-tile {
+    font-size: 1.1em;
+    padding: 10px;
     display: flex;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .login-links {
