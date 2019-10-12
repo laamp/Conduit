@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { ProjectTile } from './projectTile/projectTile';
+import { NavContextMenu } from './navContextMenu/navContextMenu';
 
 class NavBar extends React.Component {
     constructor(props) {
@@ -9,8 +10,16 @@ class NavBar extends React.Component {
         this.state = {
             contextMenuVisible: false,
             contextMenuX: 0,
-            contextMenuY: 0
+            contextMenuY: 0,
+            projectId: null
         };
+
+        document.addEventListener('click', () => this.setState({
+            contextMenuVisible: false,
+            contextMenuX: 0,
+            contextMenuY: 0,
+            projectId: null
+        }));
 
         this.logoutUser = this.logoutUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
@@ -57,7 +66,8 @@ class NavBar extends React.Component {
             this.setState({
                 contextMenuVisible: true,
                 contextMenuX: e.clientX,
-                contextMenuY: e.clientY
+                contextMenuY: e.clientY,
+                projectId
             }, () => console.log(this.state));
         };
     }
@@ -116,12 +126,22 @@ class NavBar extends React.Component {
     }
 
     render() {
+        let contextMenu;
+        if (this.state.contextMenuVisible) {
+            contextMenu = <NavContextMenu
+                projectId={this.state.projectId}
+                deleteProject={this.props.deleteProject} />;
+        } else {
+            contextMenu = null;
+        }
+
         return (
             <div className='navbar'>
                 <Link to={'/'}>
                     <h1>Conduit</h1>
                 </Link>
                 {this.getLinks()}
+                {contextMenu}
             </div>
         );
     }
