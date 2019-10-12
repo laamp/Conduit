@@ -6,6 +6,12 @@ class NavBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            contextMenuVisible: false,
+            contextMenuX: 0,
+            contextMenuY: 0
+        };
+
         this.logoutUser = this.logoutUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
     }
@@ -43,6 +49,19 @@ class NavBar extends React.Component {
         this.props.deleteProject(projectId);
     }
 
+    contextMenu(projectId) {
+        return e => {
+            e.preventDefault();
+            e.persist();
+
+            this.setState({
+                contextMenuVisible: true,
+                contextMenuX: e.clientX,
+                contextMenuY: e.clientY
+            }, () => console.log(this.state));
+        };
+    }
+
     renderProjects() {
         return (
             <ul>
@@ -59,7 +78,9 @@ class NavBar extends React.Component {
 
                         return (
                             <li key={`project-${i}`}>
-                                <div onClick={() => this.navToProject(projectId)}>
+                                <div
+                                    onClick={() => this.navToProject(projectId)}
+                                    onContextMenu={this.contextMenu(projectId)}>
                                     <ProjectTile
                                         project={this.props.projects[projectId]}
                                         numOfTasks={tasks.length}
