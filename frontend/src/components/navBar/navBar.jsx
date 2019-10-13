@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { ProjectTile } from './projectTile/projectTile';
-import { NavContextMenu } from './navContextMenu/navContextMenu';
 
 class NavBar extends React.Component {
     constructor(props) {
@@ -14,12 +13,18 @@ class NavBar extends React.Component {
             projectId: null
         };
 
-        document.addEventListener('click', () => this.setState({
-            contextMenuVisible: false,
-            contextMenuX: 0,
-            contextMenuY: 0,
-            projectId: null
-        }));
+        document.addEventListener('click', e => {
+            if (e.target.classList.contains('cm-delete-project')) {
+                this.props.deleteProject(this.state.projectId);
+            }
+
+            this.setState({
+                contextMenuVisible: false,
+                contextMenuX: 0,
+                contextMenuY: 0,
+                projectId: null
+            });
+        });
 
         this.logoutUser = this.logoutUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
@@ -58,7 +63,7 @@ class NavBar extends React.Component {
         this.props.deleteProject(projectId);
     }
 
-    contextMenu(projectId) {
+    projectContextMenu(projectId) {
         return e => {
             e.preventDefault();
             e.persist();
@@ -68,7 +73,7 @@ class NavBar extends React.Component {
                 contextMenuX: e.clientX,
                 contextMenuY: e.clientY,
                 projectId
-            }, () => console.log(this.state));
+            });
         };
     }
 
@@ -90,7 +95,7 @@ class NavBar extends React.Component {
                             <li key={`project-${i}`}>
                                 <div
                                     onClick={() => this.navToProject(projectId)}
-                                    onContextMenu={this.contextMenu(projectId)}>
+                                    onContextMenu={this.projectContextMenu(projectId)}>
                                     <ProjectTile
                                         project={this.props.projects[projectId]}
                                         numOfTasks={tasks.length}
@@ -128,9 +133,11 @@ class NavBar extends React.Component {
     render() {
         let contextMenu;
         if (this.state.contextMenuVisible) {
-            contextMenu = <NavContextMenu
-                projectId={this.state.projectId}
-                deleteProject={this.props.deleteProject} />;
+            contextMenu = <div className='cm-custom'>
+                <ul>
+                    <li className='cm-delete-project'>Delete this project</li>
+                </ul>
+            </div>;
         } else {
             contextMenu = null;
         }
