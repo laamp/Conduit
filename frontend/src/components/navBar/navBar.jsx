@@ -79,7 +79,7 @@ class NavBar extends React.Component {
 
     renderProjects() {
         return (
-            <ul>
+            <ul className='projects-list'>
                 <li key={`project-inbox`}
                     onClick={() => this.navToProject('inbox')}
                     className='project-tile'>
@@ -101,7 +101,6 @@ class NavBar extends React.Component {
                                         numOfTasks={tasks.length}
                                     />
                                 </div>
-                                <button onClick={() => this.deleteProject(projectId)}>Delete</button>
                             </li>
                         );
                     }) : null}
@@ -133,7 +132,12 @@ class NavBar extends React.Component {
     render() {
         let contextMenu;
         if (this.state.contextMenuVisible) {
-            contextMenu = <div className='cm-custom'>
+            const position = {
+                left: this.state.contextMenuX,
+                top: this.state.contextMenuY
+            };
+
+            contextMenu = <div className='cm-custom' style={position}>
                 <ul>
                     <li className='cm-delete-project'>Delete this project</li>
                 </ul>

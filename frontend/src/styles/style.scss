@@ -75,6 +75,31 @@ body,
     }
 }
 
+.projects-list li {
+    border-bottom: 1px solid rgb(0, 108, 197);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.cm-custom {
+    position: absolute;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+
+    li {
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    li:hover {
+        background-color: rgb(233, 233, 233);
+    }
+}
+
 // content
 
 .content {
