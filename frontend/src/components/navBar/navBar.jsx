@@ -115,15 +115,15 @@ class NavBar extends React.Component {
                 <div>
                     <p className='username'>Welcome, {this.props.currentUser.name}</p>
                     {this.renderProjects()}
-                    <button onClick={this.logoutUser}>Logout</button>
+                    <button className='session-button' onClick={this.logoutUser}>Logout</button>
                     <button onClick={() => this.props.history.push('/project/new')}>Create Project</button>
                 </div>
             );
         } else {
             return (
                 <div className='login-links'>
-                    <Link to={'/signup'}>Signup</Link>
-                    <Link to={'/login'}>Login</Link>
+                    <Link className='session-button' to={'/signup'}>Signup</Link>
+                    <Link className='session-button' to={'/login'}>Login</Link>
                 </div>
             );
         }

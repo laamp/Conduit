@@ -28,13 +28,13 @@ body,
 
     a {
         text-decoration: none;
-        color: white;
     }
 
     h1 {
         font-size: 1.6em;
         padding: 10px;
         background-color: $debug-blue2;
+        color: white;
     }
 }
 
@@ -60,18 +60,23 @@ body,
         margin-right: 10px;
     }
 
-    a:active {
-        background-color: rgb(209, 209, 209);
-    }
-
     a {
         flex: 1;
         text-decoration: none;
-        text-align: center;
-        padding: 10px 15px;
-        color: black;
-        background-color: rgb(245, 245, 245);
-        border-radius: 4px;
+    }
+}
+
+.session-button {
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    padding: 10px 15px;
+    color: black;
+    background-color: rgb(245, 245, 245);
+    border-radius: 4px;
+    border: none;
+
+    &:active {
+        background-color: rgb(209, 209, 209);
     }
 }
 
