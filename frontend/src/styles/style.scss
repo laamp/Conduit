@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+button {
+    font-family: 'Lato', sans-serif;
+}
+
 html,
 body,
 #root {
@@ -67,7 +71,7 @@ body,
 }
 
 .session-button {
-    font-family: 'Lato', sans-serif;
+    font-size: 1.1em;
     text-align: center;
     padding: 10px 15px;
     color: black;
@@ -78,6 +82,31 @@ body,
     &:active {
         background-color: rgb(209, 209, 209);
     }
+}
+
+.logout {
+    margin: 0 10px;
+    width: 90px;
+}
+
+.create-new-project {
+    position: absolute;
+    width: inherit;
+    bottom: 0;
+    padding: 12px;
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid rgb(0, 108, 197);
+    color: white;
+    font-size: 1.1em;
+    outline: 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.logged-in-links {
+    display: flex;
+    flex-direction: column;
 }
 
 .projects-list li {

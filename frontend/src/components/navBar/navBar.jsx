@@ -13,7 +13,7 @@ class NavBar extends React.Component {
             projectId: null
         };
 
-        document.addEventListener('click', e => {
+        const handleContextMenu = e => {
             if (e.target.classList.contains('cm-delete-project')) {
                 this.props.deleteProject(this.state.projectId);
             }
@@ -24,7 +24,10 @@ class NavBar extends React.Component {
                 contextMenuY: 0,
                 projectId: null
             });
-        });
+        };
+
+        document.addEventListener('click', handleContextMenu);
+        document.addEventListener('contextmenu', handleContextMenu);
 
         this.logoutUser = this.logoutUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
@@ -112,12 +115,14 @@ class NavBar extends React.Component {
         if (this.props.loggedIn) {
             return (
                 // add nav bar links here
-                <div>
-                    <p className='username'>Welcome, {this.props.currentUser.name}</p>
-                    {this.renderProjects()}
-                    <button className='session-button' onClick={this.logoutUser}>Logout</button>
-                    <button onClick={() => this.props.history.push('/project/new')}>Create Project</button>
-                </div>
+                <>
+                    <div className='logged-in-links'>
+                        <p className='username'>Welcome, {this.props.currentUser.name}</p>
+                        {this.renderProjects()}
+                        <button className='session-button logout' onClick={this.logoutUser}>Logout</button>
+                    </div>
+                    <button className='create-new-project' onClick={() => this.props.history.push('/project/new')}>+&nbsp;&nbsp;Create Project</button>
+                </>
             );
         } else {
             return (
