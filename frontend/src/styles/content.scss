@@ -1,0 +1,8 @@
+@import './variables.scss';
+
+.content {
+    min-width: 700px;
+    flex: 1;
+    background-color: whitesmoke;
+    overflow-y: auto;
+}

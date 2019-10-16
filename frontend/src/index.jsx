@@ -8,7 +8,9 @@ import { setAuthToken } from './util/sessionApiUtil';
 import { logout } from './actions/sessionActions';
 
 import './styles/reset.scss';
-import './styles/style.scss';
+import './styles/general.scss';
+import './styles/navbar.scss';
+import './styles/content.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;

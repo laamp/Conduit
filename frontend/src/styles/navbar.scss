@@ -1,29 +1,5 @@
 @import './variables.scss';
 
-// general
-
-* {
-    box-sizing: border-box;
-}
-
-button {
-    font-family: 'Lato', sans-serif;
-}
-
-html,
-body,
-#root {
-    height: 100%;
-    width: 100%;
-}
-
-#root {
-    font-family: 'Lato', sans-serif;
-    display: flex;
-}
-
-// nav bar
-
 .navbar {
     width: 300px;
     min-width: 300px;
@@ -132,13 +108,4 @@ body,
     li:hover {
         background-color: rgb(233, 233, 233);
     }
-}
-
-// content
-
-.content {
-    min-width: 700px;
-    flex: 1;
-    background-color: whitesmoke;
-    overflow-y: auto;
 }

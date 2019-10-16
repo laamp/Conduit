@@ -19,8 +19,8 @@ const App = () => (
                 <AuthRoute exact path='/login' component={LoginFormContainer} />
             </Switch>
             <ProtectedRoute path='/project/:projectId' component={ProjectShowContainer} /> {/* render the selected project */}
-            <ProtectedRoute path='/project/new' component={ProjectFormContainer} /> {/* render the create new project modal */}
         </div>
+        <ProtectedRoute path='/project/new' component={ProjectFormContainer} /> {/* render the create new project modal */}
     </>
 );
 
