@@ -60,6 +60,7 @@ class SignupForm extends React.Component {
     render() {
         return (
             <div className='session-form signup'>
+                <h1>Sign up to continue</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <input type='text'

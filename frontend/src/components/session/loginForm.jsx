@@ -55,6 +55,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div className='session-form login'>
+                <h1>Login to continue</h1>
                 <button onClick={this.handleGuestLogin}>Guest Login</button>
                 <form onSubmit={this.handleSubmit}>
                     <div>
