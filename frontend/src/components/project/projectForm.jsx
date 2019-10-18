@@ -73,7 +73,7 @@ class ProjectForm extends React.Component {
                 />
                 <div>
                     <input className='button-input' type='submit' value='Create project' />
-                    <button className='button-input' onClick={this.cancelNewProject}>Cancel</button>
+                    <button className='button-input cancel' onClick={this.cancelNewProject}>Cancel</button>
                 </div>
             </form>
         );

@@ -21,6 +21,22 @@ body,
     display: flex;
 }
 
+.splash-page {
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    footer {
+        font-size: 1.1em;
+    }
+}
+
 .scrim {
     position: absolute;
     height: 100vh;
@@ -73,4 +89,16 @@ body,
         padding: 10px;
         width: 120px;
     }
+
+    .button-input.cancel {
+        border: 1px solid lightgray;
+    }
+}
+
+.session-form {
+    width: 400px;
+    height: fit-content;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
 }
