@@ -133,3 +133,11 @@ body,
         padding: 10px;
     }
 }
+
+.session-errors {
+    color: firebrick;
+
+    li {
+        margin-bottom: 10px;
+    }
+}

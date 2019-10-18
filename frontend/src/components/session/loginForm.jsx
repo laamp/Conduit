@@ -42,7 +42,7 @@ class LoginForm extends React.Component {
 
     renderErrors() {
         return (
-            <ul>
+            <ul className='session-errors'>
                 {Object.keys(this.props.errors).map((error, i) => (
                     <li key={`error-${i}`}>
                         {this.props.errors[error]}

@@ -17,13 +17,19 @@ class ProjectShow extends React.Component {
         if (this.props.projects[this.props.currentProjectId] ||
             this.props.currentProjectId === 'inbox') {
 
-            return (<>
-                {this.props.currentProjectId === 'inbox' ? <h1>Inbox</h1> :
-                    <h1>{this.props.projects[this.props.currentProjectId].title}</h1>}
+            return (
+                <div className='project-show'>
+                    {this.props.currentProjectId === 'inbox' ? <h1>Inbox</h1> :
+                        <>
+                            <h1>{this.props.projects[this.props.currentProjectId].title}</h1>
+                            <h2>{this.props.projects[this.props.currentProjectId].description}</h2>
+                        </>
+                    }
 
-                <TaskFormContainer />
-                <TasksIndexContainer />
-            </>);
+                    <TaskFormContainer />
+                    <TasksIndexContainer />
+                </div>
+            );
         }
     }
 

@@ -53,13 +53,13 @@ class TasksIndex extends React.Component {
 
     renderTasks(tasks) {
         return (
-            <ul>
+            <ul className='tasks-index'>
                 {tasks.map((task, i) => (
                     <li key={`task-${i}`}>
-                        <p>{task.title}</p>
-                        <p>{task.description}</p>
-                        {this.projectSelection(task)}
-                        <button onClick={() => this.deleteTask(task)}>Delete</button>
+                        <p className='task-title'>{task.title}</p>
+                        <p className='task-description'>{task.description}</p>
+                        {/* {this.projectSelection(task)} */}
+                        {/* <button onClick={() => this.deleteTask(task)}>Delete</button> */}
                     </li>
                 ))}
             </ul>

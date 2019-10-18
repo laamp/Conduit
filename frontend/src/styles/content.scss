@@ -6,3 +6,62 @@
     background-color: whitesmoke;
     overflow-y: auto;
 }
+
+.project-show {
+    h1 {
+        background-color: $debug-blue2;
+        color: white;
+        font-size: 1.6em;
+        padding: 10px;
+    }
+
+    h2 {
+        margin: 10px;
+    }
+}
+
+.create-task-form {
+    display: flex;
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 1px;
+
+    input {
+        padding: 7px 10px;
+        width: 100%;
+        border-radius: 0;
+        border: none;
+        outline: 0;
+
+        &:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+    }
+
+    input[type=date] {
+        width: 50%;
+        border-radius: 0 4px 4px 0;
+    }
+}
+
+.tasks-index {
+    margin: 10px;
+    background-color: $debug-blue2;
+    border-radius: 4px;
+    color: white;
+
+    li {
+        display: flex;
+        padding: 10px;
+        border-bottom: $debug-blue-border;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        * {
+            width: 100%;
+        }
+    }
+}

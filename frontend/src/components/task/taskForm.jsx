@@ -41,7 +41,7 @@ class TaskForm extends React.Component {
 
     render() {
         return (
-            <form
+            <form className='create-task-form'
                 onFocus={() => this.props.history.push(`/project/${this.props.currentProjectId}/tasks/new`)}
                 onBlur={() => this.props.history.push(`/project/${this.props.currentProjectId}`)}
                 onSubmit={this.handleSubmit}
@@ -49,7 +49,7 @@ class TaskForm extends React.Component {
                 <input type="text"
                     value={this.state.title}
                     onChange={this.update('title')}
-                    placeholder='Enter a title'
+                    placeholder='Create a new task'
                 />
                 <input type="text"
                     value={this.state.description}
@@ -60,7 +60,7 @@ class TaskForm extends React.Component {
                     value={this.state.dueDate}
                     onChange={this.update('dueDate')}
                 />
-                <input type="submit" value="Create task" />
+                <input type="submit" value="Create task" hidden />
             </form>
         );
     }
