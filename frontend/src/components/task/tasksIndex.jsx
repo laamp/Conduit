@@ -8,6 +8,14 @@ class TasksIndex extends React.Component {
         this.moveTask = this.moveTask.bind(this);
     }
 
+    taskChecked(task) {
+        return e => {
+            let updatedTask = Object.assign({}, task);
+            updatedTask.completed = e.target.checked;
+            this.props.updateTask(updatedTask);
+        };
+    }
+
     moveTask(task) {
         // send the task and new project id here
         return e => {
@@ -54,14 +62,24 @@ class TasksIndex extends React.Component {
     renderTasks(tasks) {
         return (
             <ul className='tasks-index'>
-                {tasks.map((task, i) => (
-                    <li key={`task-${i}`}>
-                        <p className='task-title'>{task.title}</p>
-                        <p className='task-description'>{task.description}</p>
-                        {/* {this.projectSelection(task)} */}
-                        {/* <button onClick={() => this.deleteTask(task)}>Delete</button> */}
-                    </li>
-                ))}
+                {tasks.map((task, i) => {
+                    let status = '';
+                    let checked = '';
+                    if (task.completed) {
+                        status = 'completed-task';
+                        checked = 'checked';
+                    }
+
+                    return (
+                        <li key={`task-${i}`} className={status}>
+                            <input type="checkbox" onChange={this.taskChecked(task)} checked={checked} />
+                            <p className='task-title'>{task.title}</p>
+                            <p className='task-description'>{task.description}</p>
+                            {/* {this.projectSelection(task)} */}
+                            {/* <button onClick={() => this.deleteTask(task)}>Delete</button> */}
+                        </li>
+                    );
+                })}
             </ul>
         );
     }
