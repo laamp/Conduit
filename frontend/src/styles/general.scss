@@ -141,3 +141,37 @@ body,
         margin-bottom: 10px;
     }
 }
+
+.cm-custom {
+    position: absolute;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
+
+    h6 {
+        font-size: 1em;
+        padding: 10px;
+        color: $debug-blue2;
+        border-bottom: 1px solid lightgray;
+        cursor: default;
+    }
+
+    ul {
+        border-bottom: 1px solid lightgray;
+    }
+
+    ul:last-child {
+        border-bottom: none;
+    }
+
+    li {
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    li:hover {
+        background-color: rgb(233, 233, 233);
+    }
+}

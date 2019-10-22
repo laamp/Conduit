@@ -13,10 +13,13 @@ class NavBar extends React.Component {
             projectId: null
         };
 
-        const handleContextMenu = e => {
+        this.handleContextMenu = e => {
             if (e.target.classList.contains('cm-delete-project')) {
                 this.props.deleteProject(this.state.projectId);
             }
+
+            document.removeEventListener('click', this.handleContextMenu);
+            document.removeEventListener('contextmenu', this.handleContextMenu);
 
             this.setState({
                 contextMenuVisible: false,
@@ -25,9 +28,6 @@ class NavBar extends React.Component {
                 projectId: null
             });
         };
-
-        document.addEventListener('click', handleContextMenu);
-        document.addEventListener('contextmenu', handleContextMenu);
 
         this.logoutUser = this.logoutUser.bind(this);
         this.getLinks = this.getLinks.bind(this);
@@ -70,6 +70,9 @@ class NavBar extends React.Component {
         return e => {
             e.preventDefault();
             e.persist();
+
+            document.addEventListener('click', this.handleContextMenu);
+            document.addEventListener('contextmenu', this.handleContextMenu);
 
             this.setState({
                 contextMenuVisible: true,

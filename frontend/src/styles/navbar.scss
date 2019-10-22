@@ -92,20 +92,3 @@
         border-bottom: none;
     }
 }
-
-.cm-custom {
-    position: absolute;
-    border-radius: 4px;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-
-    li {
-        padding: 10px;
-        border-radius: 4px;
-    }
-
-    li:hover {
-        background-color: rgb(233, 233, 233);
-    }
-}

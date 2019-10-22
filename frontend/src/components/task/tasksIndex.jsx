@@ -16,13 +16,13 @@ class TasksIndex extends React.Component {
             this.resetState();
         };
 
-        document.addEventListener('click', this.resetContextMenu);
-        document.addEventListener('contextmenu', this.resetContextMenu);
-
         this.moveTask = this.moveTask.bind(this);
     }
 
     resetState() {
+        document.removeEventListener('click', this.resetContextMenu);
+        document.removeEventListener('contextmenu', this.resetContextMenu);
+
         this.setState({
             contextMenuVisible: false,
             contextMenuX: 0,
@@ -57,30 +57,38 @@ class TasksIndex extends React.Component {
     }
 
     renderOtherProjects() {
-        if (!this.props.projects || !this.state.task) return null;
+        if (!this.props.projects || !this.state.task) {
+            return null;
+        }
 
-        return (<ul>
-            {this.props.currentProjectId !== 'inbox' ?
-                <li key='project-inbox'
-                    onClick={() => this.moveTask(this.state.task, 'inbox')}>
-                    Inbox
+        return (<>
+            <h6>Move to another project</h6>
+            <ul>
+                {this.props.currentProjectId !== 'inbox' ?
+                    <li key='project-inbox'
+                        onClick={() => this.moveTask(this.state.task, 'inbox')}>
+                        Inbox
                 </li> :
-                null}
-            {Object.values(this.props.projects).map((project, i) => {
-                if (this.state.task.project !== project._id) {
-                    return <li key={`project-${i}`}
-                        onClick={() => this.moveTask(this.state.task, project._id)}>
-                        {project.title}
-                    </li>
-                } else { return null; }
-            })}
-        </ul>);
+                    null}
+                {Object.values(this.props.projects).map((project, i) => {
+                    if (this.state.task.project !== project._id) {
+                        return <li key={`project-${i}`}
+                            onClick={() => this.moveTask(this.state.task, project._id)}>
+                            {project.title}
+                        </li>
+                    } else { return null; }
+                })}
+            </ul>
+        </>);
     }
 
     taskContextMenu(task) {
         return e => {
             e.preventDefault();
             e.persist();
+
+            document.addEventListener('click', this.resetContextMenu);
+            document.addEventListener('contextmenu', this.resetContextMenu);
 
             this.setState({
                 contextMenuVisible: true,
@@ -123,11 +131,12 @@ class TasksIndex extends React.Component {
             };
 
             contextMenu = <div className='cm-custom' style={position}>
-                <h1>this is a context menu</h1>
                 {this.renderOtherProjects()}
-                <div onClick={() => this.props.deleteTask(this.state.task._id)}>
-                    Delete task
-                </div>
+                <ul>
+                    <li onClick={() => this.props.deleteTask(this.state.task._id)}>
+                        Delete task
+                    </li>
+                </ul>
             </div>;
         } else {
             contextMenu = null;
