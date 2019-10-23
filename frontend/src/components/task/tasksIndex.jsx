@@ -99,6 +99,30 @@ class TasksIndex extends React.Component {
         };
     }
 
+    calcContextMenu() {
+        let cm;
+        let position = { left: 0, top: 0 };
+        if (this.state.contextMenuVisible) {
+            position = {
+                left: this.state.contextMenuX,
+                top: this.state.contextMenuY
+            };
+
+            cm = <div className='cm-custom' style={position}>
+                {this.renderOtherProjects()}
+                <ul>
+                    <li onClick={() => this.props.deleteTask(this.state.task._id)}>
+                        Delete task
+                    </li>
+                </ul>
+            </div>;
+        } else {
+            cm = null;
+        }
+
+        return cm;
+    }
+
     renderTasks(tasks) {
         return (
             <ul className='tasks-index'>
@@ -123,24 +147,7 @@ class TasksIndex extends React.Component {
     }
 
     render() {
-        let contextMenu;
-        if (this.state.contextMenuVisible) {
-            const position = {
-                left: this.state.contextMenuX,
-                top: this.state.contextMenuY
-            };
-
-            contextMenu = <div className='cm-custom' style={position}>
-                {this.renderOtherProjects()}
-                <ul>
-                    <li onClick={() => this.props.deleteTask(this.state.task._id)}>
-                        Delete task
-                    </li>
-                </ul>
-            </div>;
-        } else {
-            contextMenu = null;
-        }
+        let contextMenu = this.calcContextMenu();
 
         let inboxTasks = Object.values(this.props.tasks).filter(task => !task.project);
         if (this.props.currentProjectId === 'inbox') {
