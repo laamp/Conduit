@@ -64,9 +64,59 @@
             width: 100%;
         }
 
-        input[type=checkbox] {
+        .check-container {
+            position: relative;
+            cursor: pointer;
             width: fit-content;
-            margin: 2px 10px 0 0;
+            padding: 0 8px;
+            margin-right: 10px;
+
+            .custom-checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 16px;
+                width: 16px;
+                background-color: white;
+                border-radius: 4px;
+            }
+
+            .custom-checkmark:after {
+                content: '';
+                position: absolute;
+                display: none;
+            }
+        }
+
+        .check-container:hover input~.custom-checkmark {
+            background-color: whitesmoke;
+        }
+
+        .check-container input:checked~.custom-checkmark {
+            background-color: $debug-blue;
+        }
+
+        .check-container input:checked~.custom-checkmark:after {
+            display: block;
+        }
+
+        input[type=checkbox] {
+            position: absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+
+        .check-container .custom-checkmark:after {
+            left: 5px;
+            top: 1px;
+            width: 3px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
         }
     }
 }

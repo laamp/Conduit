@@ -136,7 +136,12 @@ class TasksIndex extends React.Component {
 
                     return (
                         <li key={`task-${i}`} className={status} onContextMenu={this.taskContextMenu(task)}>
-                            <input type="checkbox" onChange={this.taskChecked(task)} checked={checked} />
+
+                            <label className='check-container'>
+                                <input type="checkbox" onChange={this.taskChecked(task)} checked={checked} />
+                                <span className='custom-checkmark'></span>
+                            </label>
+
                             <p className='task-title'>{task.title}</p>
                             <p className='task-description'>{task.description}</p>
                         </li>
