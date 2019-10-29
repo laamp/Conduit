@@ -75,6 +75,7 @@ class LoginForm extends React.Component {
                         {this.renderErrors()}
                     </div>
                 </form>
+                <div className="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         );
     }
