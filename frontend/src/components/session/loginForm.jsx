@@ -7,12 +7,54 @@ class LoginForm extends React.Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            googleSignedIn: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGuestLogin = this.handleGuestLogin.bind(this);
         this.renderErrors = this.renderErrors.bind(this);
+
+        window.signOut = this.signOut;
+    }
+
+    onSuccess(googleUser) {
+        window.alert('on success fired');
+        let profile = googleUser.getBasicProfile();
+        console.log(profile);
+    }
+
+    signOut() {
+        let auth2 = window.gapi.auth2.getAuthInstance();
+        auth2.signOut().then(() => {
+            console.log('google user signed out');
+        });
+    }
+
+    componentDidMount() {
+        // setup google sign in button
+        let clientIdStr = '';
+        if (process.env.NODE_ENV === 'development') {
+            clientIdStr = '903376099996-dmrrs41nfqdtjs0m7203s6k22rk4gset.apps.googleusercontent.com';
+        } else {
+            clientIdStr = '903376099996-3o4sf17arjo33tn9kjnloatac6i595ka.apps.googleusercontent.com';
+        }
+
+        window.gapi.load('auth2', () => {
+            this.auth2 = window.gapi.auth2.init({
+                clientId: clientIdStr
+            });
+
+            window.gapi.load('signin2', () => {
+                var opts = {
+                    width: 275,
+                    height: 37,
+                    // onSuccess: this.onSuccess.bind(this)
+                    onSuccess: () => console.log('asdfasdfasdfasdf')
+                };
+                window.gapi.signin2.render('google-button', opts);
+            });
+        });
     }
 
     componentWillUnmount() {
@@ -75,7 +117,9 @@ class LoginForm extends React.Component {
                         {this.renderErrors()}
                     </div>
                 </form>
-                <div className="g-signin2" data-onsuccess="onSignIn"></div>
+
+                <div id="google-button">Google Sign In</div>
+
             </div>
         );
     }

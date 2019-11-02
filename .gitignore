@@ -1,3 +1,6 @@
 secure
 node_modules
 config/keys_dev.js
+oauth-info.txt
+credentials.json
+credentials-local.json
