@@ -89,4 +89,9 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     });
 });
 
+// google log in / sign up route
+router.post('/oauth', (res, req) => {
+    console.log(`token received: ${req.body.idtoken}`);
+});
+
 module.exports = router;
