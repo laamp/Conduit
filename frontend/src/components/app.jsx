@@ -9,6 +9,9 @@ import LoginFormContainer from './session/loginFormContainer';
 import ProjectShowContainer from './project/projectShowContainer';
 import ProjectFormContainer from './project/projectFormContainer';
 
+import { oauthSignin } from '../util/sessionApiUtil';
+window.oauth = oauthSignin;
+
 const App = () => (
     <>
         <NavBarContainer />

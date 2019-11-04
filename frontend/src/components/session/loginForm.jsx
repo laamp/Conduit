@@ -19,13 +19,14 @@ class LoginForm extends React.Component {
     }
 
     onSuccess(googleUser) {
-        window.alert('on success fired');
         let profile = googleUser.getBasicProfile();
+        console.groupCollapsed('google auth info');
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-        console.log(googleUser.getAuthResponse().id_token);
+        console.log('id token: ' + googleUser.getAuthResponse().id_token);
+        console.groupEnd();
     }
 
     signOut() {

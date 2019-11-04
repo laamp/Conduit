@@ -8,6 +8,10 @@ const User = require('../../models/User');
 const validateSignupInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
 
+const { OAuth2Client } = require('google-auth-library');
+const devClientId = "903376099996-dmrrs41nfqdtjs0m7203s6k22rk4gset.apps.googleusercontent.com";
+const prodClientId = "903376099996-3o4sf17arjo33tn9kjnloatac6i595ka.apps.googleusercontent.com";
+
 // test route
 router.get('/test', (req, res) => res.json({ msg: 'This is the users test route' }));
 
@@ -90,8 +94,33 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 });
 
 // google log in / sign up route
-router.post('/oauth', (res, req) => {
-    console.log(`token received: ${req.body.idtoken}`);
+router.post('/oauth', (req, res) => {
+    let clientId = '';
+    if (process.env.NODE_ENV === 'production') {
+        clientId = prodClientId;
+    } else {
+        clientId = devClientId;
+    }
+
+    const client = new OAuth2Client(clientId);
+
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: req.body.token,
+            audience: clientId
+        });
+
+        const payload = ticket.getPayload;
+        const userId = payload.sub;
+        console.log(`userId: ${userId}`);
+    }
+    verify().then(() => res.status(200).json({ message: 'user verified' })).catch(console.error);
+
+
+    /*
+    console.log(`token received: ${req.body.token}`);
+    return res.status(200).json({ message: 'token received' });
+    */
 });
 
 module.exports = router;

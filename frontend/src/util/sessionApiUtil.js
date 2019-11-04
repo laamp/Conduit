@@ -24,3 +24,9 @@ export const guestLogin = () => {
 
     return axios.post('/api/users/login', guestInfo);
 };
+
+export const oauthSignin = idToken => {
+    return axios.post('api/users/oauth', idToken);
+};
+
+window.oauthSignin = oauthSignin;
