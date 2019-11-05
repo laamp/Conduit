@@ -104,23 +104,19 @@ router.post('/oauth', (req, res) => {
 
     const client = new OAuth2Client(clientId);
 
-    async function verify() {
-        const ticket = await client.verifyIdToken({
-            idToken: req.body.token,
-            audience: clientId
-        });
-
-        const payload = ticket.getPayload;
+    client.verifyIdToken({
+        idToken: req.body.token,
+        audience: clientId
+    }).then(ticket => {
+        const payload = ticket.getPayload();
         const userId = payload.sub;
-        console.log(`userId: ${userId}`);
-    }
-    verify().then(() => res.status(200).json({ message: 'user verified' })).catch(console.error);
 
+        // TODO: either create user or sign the user in
 
-    /*
-    console.log(`token received: ${req.body.token}`);
-    return res.status(200).json({ message: 'token received' });
-    */
+        return res.status(200).json({ userId });
+    }).catch(error => {
+        return res.status(400).json({ message: 'invalid idtoken' });
+    });
 });
 
 module.exports = router;

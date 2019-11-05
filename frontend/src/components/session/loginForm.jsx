@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-        console.log('id token: ' + googleUser.getAuthResponse().id_token);
+        console.log(googleUser.getAuthResponse().id_token);
         console.groupEnd();
     }
 
